@@ -1,3 +1,7 @@
 ==homecontrol.sitebuilt.net==
 
 {{:header-menu}}
+#First Commit has ha and hrwd shell with header done and rwd for panels working
+#tasks
+#*move header and rwd to ha
+#*replace image temp and room with programmed values

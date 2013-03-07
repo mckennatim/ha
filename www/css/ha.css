@@ -1,18 +1,8 @@
-
-
 .timest {
     float: right;
     font-size: .6em;
     color: white;
 }
-
-.thelp {font-size: .6em;}
-.green{background: rgba(38,162,43,.75);}
-.orange{background: rgba(153,0,10,.75);}
-.blue{background: rgba(50, 99,187,.75);}
-.black{background: rgba(0,0,0,.75);}
-.rname{font-size: 1em;}
-
 .setpt {
 		width: auto;
 		border-radius: 3px;
@@ -20,11 +10,54 @@
 		padding: 3px;
 		color: white;
 }
+#rooms{margin-top: .1em;}
 
-#rooms{
-	margin-top: .1em;
+
+/* Start with core styles outside of a media query that apply to mobile and up */
+/* Global typography and design elements, stacked containers */
+body { font-family: Helvetica, san-serif; }
+H1 { color: green; }
+.thelp {font-size: .6em;}
+.green{background: rgba(38,162,43,.75);}
+.orange{background: rgba(153,0,10,.75);}
+.blue{background: rgba(50, 99,187,.75);}
+.black{background: rgba(0,0,0,.75);}
+.head-rm header {height:100px;}
+
+.head-img {float:left;}
+.head-img img {width:150px; height:100px;}
+.head-txt {float:left; width:120px; margin:6px; font-family:"Arial Black", Gadget, sans-serif;}
+.head-temp {height:75px;font-size:3em; float:right; margin:6px;}
+.head-rm-name {float:right;}
+
+/* Stack the two content containers */
+.main{border:2px solid green;}
+.col1 { display:block; width:100%;}
+.col1 .col1a{border:2px solid red;}
+.col1 .col1b{border:2px solid blue;}
+.col2 { width:100%; border:2px solid green;}
+.col3 { width:100%; border:2px solid yellow;}
+
+/* First breakpoint at 576px */
+/* Inherits mobile styles, but floats containers to make columns */
+@media all and (min-width: 36em){
+	.main { float: left; width:30%; }
+	.col1 { float: left; width:48%; }
+	.col2 { float: left; width:48%; }	
+	.col3 { float: left; width:48%; }		
 }
 
+/* Second breakpoint at 800px */
+/* Adjusts column proportions, tweaks base H1 */
+@media all and (min-width: 50em){
+	.main { width:30%; }
+	.col1 { float: left; width:33%; }
+	.col2 {float: left; width:33%; }
+	.col3 {width:33%; }	
+	/* You can also tweak any other styles in a breakpoint */
+	H1 { color: blue; font-size:1.2em }
+}
+/*this is for page1*/
 @media all and (min-width: 480px){
 	.setpt {
 		width: auto;
