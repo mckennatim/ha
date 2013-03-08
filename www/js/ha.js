@@ -8,16 +8,18 @@ var orange= "rgba(153,0,10,.75)";
 var blue= "rgba(50, 99,187,.75)";
 var black= "rgba(0,0,0,.75)";
 var hid = 0; //aroom header data roomid
+var therooms = new Object();
 /*intialize app -- if not already in local storage*/
-getRoomList();
-getRoomImages();
+
 
 day = ["Sun", "Mon", "Tues", "Wed", "Thu", "Fri", "Sat" ];
 sday = ["Su", "M", "T", "W", "Th", "F", "S" ];
 
 $('#main-page').live('pageinit', function(event) {
 	console.log('in live pageinit for main-page');
-	console.log(b64.livingroom);
+	//console.log(b64.livingroom);
+	getRoomList();
+ 	getRoomImages();
 	initMainPage();
 	getData();
 	
@@ -52,6 +54,9 @@ $('#main-page').live('pageinit', function(event) {
 });//end of pageinit????
 
 $('#aroom').live('pageinit', function(event) {
+	getRoomList();
+	getRoomImages();	
+	getData();
 	console.log('in live pageinit for aroom');
 	$(".arm-goup").click(function() {
 		console.log("clicked top-rm");
@@ -85,40 +90,43 @@ function getData(){
 		//foods = data.items;
 		console.log("in getJSON data function");
 		console.log(data['items'][0]);
+		console.log(data.items);
 		therooms = data.items;
-		console.log(therooms[3]);
-		$.each(therooms, function(index, room) {			
-			if (room.temp==null){
-				ftemp="-- ";
-			}else {ftemp = Math.round(room.temp/16*9/5+32);}
-			if (room.setpt==null){
-				stemp="-- ";
-			}else {stemp=Math.round(room.setpt/8*9/5+32);}			
-			if (room.relay==null){
-				rell="not set";
-				bkg="black";
-			}else {
-				if (room.relay == 0){
-					rell="off"; bkg=green;
-				}else{
-					rell="on"; 
-					bkg=orange; 
-				}
-			}	
-			na = new Date(room.time*1000);
-			now= sday[na.getDay()]+' '+na.getDate()+' '+na.getHours()+':'+na.getMinutes();
-			selTemp ="ul li:eq("+index+") span.temp-disp";
-			selSet ="ul li:eq("+index+") span.setpt-refresh";
-			selBorSet ="ul li:eq("+index+") p.setpt";
-			selNow ="ul li:eq("+index+") span.timest";
-			$(selTemp).html (ftemp);
-			$(selSet).html (stemp);
-			$(selSet).css("background", bkg);
-			$(selBorSet).css("background", bkg);
-			$(selNow).html(now);
-		});
-		$('#rooms').listview('refresh');
-	});		
+		putData(therooms);
+		initAroom(0);
+	});
+}
+function putData(therooms){
+	console.log(therooms);
+	$.each(therooms, function(index, room) {
+		ftemp = a2f(room.temp);			
+		//console.log(ftemp);
+		stemp = a2f(room.setpt*2)	
+		if (room.relay==null){
+			rell="not set";
+			bkg="black";
+		}else {
+			if (room.relay == 0){
+				rell="off"; bkg=green;
+			}else{
+				rell="on"; 
+				bkg=orange; 
+			}
+		}	
+		na = new Date(room.time*1000);
+		now= sday[na.getDay()]+' '+na.getDate()+' '+na.getHours()+':'+na.getMinutes();
+		selTemp ="ul li:eq("+index+") span.temp-disp";
+		selSet ="ul li:eq("+index+") span.setpt-refresh";
+		selBorSet ="ul li:eq("+index+") p.setpt";
+		selNow ="ul li:eq("+index+") span.timest";
+		//console.log(ftemp);
+		$(selTemp).html (ftemp);
+		$(selSet).html (stemp);
+		$(selSet).css("background", bkg);
+		$(selBorSet).css("background", bkg);
+		$(selNow).html(now);
+	});
+	$('#rooms').listview('refresh');
 }
 
 function getRoomList(){
@@ -144,25 +152,27 @@ function getRoomImages(){
 	numrooms=(rooms.length); 	
 	console.log(numrooms);
 	for (i=0;i<numrooms;i++){
-		console.log(rooms[i]);
+		//console.log(rooms[i]);
 		rfile ="b64_"+rooms[i].room;
-		console.log(rfile);
+		//console.log(rfile);
 		rnam = (rfile.substring(4));
 		if ( localStorage.getItem(rfile)) {
-			console.log(rfile +" exists");
+			//console.log(rfile +" exists");
 			b64[rnam]=  localStorage.getItem(rfile);
 		}else{
-			console.log("no "+rfile);
+			//console.log("no "+rfile);
 			b64[rnam] = $.ajax({url: "img/base64/"+rnam+".txt", async: false}).responseText;
 			localStorage.setItem(rfile, b64[rnam]);
 		}
 	}	
 }
 function a2f(temp) {
-	if (temp==null){
-		ftemp="--";
-	}else {ftemp = Math.round(temp/16*9/5+32);}	
-	return ftemp;
+	console.log(temp);
+	if (temp==null || temp==0){
+		tftemp="--";
+	}else {tftemp = Math.round(temp/16*9/5+32);}	
+	console.log(tftemp);	
+	return tftemp;
 }
 function fillRoom(rid){
 		rom=rooms[rid];
@@ -175,6 +185,20 @@ function fillRoom(rid){
 		imag='<img src="data:image/jpeg;charset=utf-8;base64, '+ima+'">';
 		$('.head-img').html(imag);
 		$.mobile.changePage($("#aroom"), "slide", true, true);
+		console.log(rooms[rid].rname);
+		console.log(tom);	
+}
+function initAroom(rid){
+	    console.log("in initAroom");
+		rom=rooms[rid];
+		tom=therooms[rid];
+		console.log(rom);
+		$('.head-rm-name').html(rom.rname);
+		$('.head-rm-name').data("rmid",rid);
+		$('.head-temp').html(a2f(tom.temp)+"&deg");
+		ima = b64[rom.room];
+		imag='<img src="data:image/jpeg;charset=utf-8;base64, '+ima+'">';
+		$('.head-img').html(imag);
 		console.log(rooms[rid].rname);
 		console.log(tom);	
 }
