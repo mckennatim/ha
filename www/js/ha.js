@@ -7,6 +7,7 @@ var green ="rgba(38,162,43,.75)";
 var orange= "rgba(153,0,10,.75)";
 var blue= "rgba(50, 99,187,.75)";
 var black= "rgba(0,0,0,.75)";
+var hid = 0; //aroom header data roomid
 /*intialize app -- if not already in local storage*/
 getRoomList();
 getRoomImages();
@@ -42,15 +43,37 @@ $('#main-page').live('pageinit', function(event) {
 		getData();
 		$('#popupMenu').popup("close");
 	});		
-
+	$('.room-li').click(function() {
+		rsid= jQuery(this).attr("id");
+		rid = rsid.substring(2);
+		fillRoom(rid);
+		console.log(rid);
+	});
 });//end of pageinit????
 
-
+$('#aroom').live('pageinit', function(event) {
+	console.log('in live pageinit for aroom');
+	$(".arm-goup").click(function() {
+		console.log("clicked top-rm");
+	  $("html, body").animate({ scrollTop: 0 }, "slow");
+	  return false;
+	});
+	$(".arm-prev").click(function() {
+		hid=$('.head-rm-name').data("rmid");
+		fillRoom(prev(hid));
+	  	return false;
+	});
+	$(".arm-next").click(function() {
+		hid=$('.head-rm-name').data("rmid");		
+		fillRoom(next(hid));
+	  	return false;
+	});			
+});//end of pageinit????
 
 function initMainPage(){
 	$.each(rooms, function(index, room) {
 		ima = b64[room.room];
-		$('#rooms').append('<li id="rm'+index+'"><a href="#"><img src="data:image/jpeg;charset=utf-8;base64, '+ima+'"><span class="temp"> <h2><span class="temp-disp"></span> &deg F </h2></span><p class="rname">'+room.rname+'<span class="timest"></span></p><p class="ui-li-aside setpt"><span class="setpt-refresh"></span>&deg F</p></a></li>');
+		$('#rooms').append('<li id="rm'+index+'" class="room-li"><a href="#"><img src="data:image/jpeg;charset=utf-8;base64, '+ima+'"><span class="temp"> <h2><span class="temp-disp"></span> &deg F </h2></span><p class="rname">'+room.rname+'<span class="timest"></span></p><p class="ui-li-aside setpt"><span class="setpt-refresh"></span>&deg F</p></a></li>');
 	});
 	$('#rooms').listview('refresh');		
 }
@@ -134,4 +157,36 @@ function getRoomImages(){
 			localStorage.setItem(rfile, b64[rnam]);
 		}
 	}	
+}
+function a2f(temp) {
+	if (temp==null){
+		ftemp="--";
+	}else {ftemp = Math.round(temp/16*9/5+32);}	
+	return ftemp;
+}
+function fillRoom(rid){
+		rom=rooms[rid];
+		tom=therooms[rid];
+		console.log(rom);
+		$('.head-rm-name').html(rom.rname);
+		$('.head-rm-name').data("rmid",rid);
+		$('.head-temp').html(a2f(tom.temp)+"&deg");
+		ima = b64[rom.room];
+		imag='<img src="data:image/jpeg;charset=utf-8;base64, '+ima+'">';
+		$('.head-img').html(imag);
+		$.mobile.changePage($("#aroom"), "slide", true, true);
+		console.log(rooms[rid].rname);
+		console.log(tom);	
+}
+
+function prev(hid){
+	if (hid==0){hid= numrooms-1;}else{hid--;}
+	console.log(hid);
+	return hid;
+}
+ function next(hid){
+	if (hid==numrooms-1){hid=0;}else{hid++;} 
+	console.log(hid);	
+	return hid;
+	
 }
