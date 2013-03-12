@@ -72,7 +72,22 @@ $('#aroom').live('pageinit', function(event) {
 		hid=$('.head-rm-name').data("rmid");		
 		fillRoom(next(hid));
 	  	return false;
-	});			
+	});	
+	$("#slider-setpt").change(function(e){ //on moving slider	
+		var s = $(this).val();
+		console.log(s)
+		$(".button-setpt span").html(s+"&deg;");
+	});	
+	$("#time-boost").hide();
+	$("#clock").click(function() {
+		$("#time-boost").show();		
+	  	return false;
+	});
+	$("#datetime-set-til").hide();
+	$("#datetime34").click(function() {
+		$("#datetime-set-til").show();		
+	  	return false;
+	});	
 });//end of pageinit????
 
 function initMainPage(){
@@ -97,7 +112,7 @@ function getData(){
 	});
 }
 function putData(therooms){
-	console.log(therooms);
+	//console.log(therooms);
 	$.each(therooms, function(index, room) {
 		ftemp = a2f(room.temp);			
 		//console.log(ftemp);
@@ -126,7 +141,7 @@ function putData(therooms){
 		$(selBorSet).css("background", bkg);
 		$(selNow).html(now);
 	});
-	$('#rooms').listview('refresh');
+	//$('#rooms').listview('refresh');
 }
 
 function getRoomList(){
@@ -167,11 +182,11 @@ function getRoomImages(){
 	}	
 }
 function a2f(temp) {
-	console.log(temp);
+	//console.log(temp);
 	if (temp==null || temp==0){
 		tftemp="--";
 	}else {tftemp = Math.round(temp/16*9/5+32);}	
-	console.log(tftemp);	
+	//console.log(tftemp);	
 	return tftemp;
 }
 function fillRoom(rid){
@@ -184,6 +199,7 @@ function fillRoom(rid){
 		ima = b64[rom.room];
 		imag='<img src="data:image/jpeg;charset=utf-8;base64, '+ima+'">';
 		$('.head-img').html(imag);
+		$('.button-setpt').html(a2f(tom.setpt));
 		$.mobile.changePage($("#aroom"), "slide", true, true);
 		console.log(rooms[rid].rname);
 		console.log(tom);	
@@ -199,6 +215,7 @@ function initAroom(rid){
 		ima = b64[rom.room];
 		imag='<img src="data:image/jpeg;charset=utf-8;base64, '+ima+'">';
 		$('.head-img').html(imag);
+		$('.button-setpt').html(a2f(tom.setpt));	
 		console.log(rooms[rid].rname);
 		console.log(tom);	
 }
@@ -214,3 +231,23 @@ function prev(hid){
 	return hid;
 	
 }
+
+/*
+http://homecontrol.sitebuilt.net/services/getData.php?path=80302&room=all
+
+Object {circuit: "ckt0", id: "259720", feed: "80302", room: "livingroom", rname: "Livingroom"…}
+afeed: "80302"
+circuit: "ckt0"
+defsetpt: "152"
+feed: "80302"
+id: "259720"
+oldroom: "livingroom"
+relay: "0"
+rname: "Livingroom"
+room: "livingroom"
+setpt: "151"
+temp: "355"
+time: "1363038504"
+
+*/
+

@@ -1,12 +1,12 @@
 <?php
 echo header("Content-type: text/plain");
-//echo $_SERVER['REQUEST_TIME'];
+//http://homecontrol.sitebuilt.net/services/getData.php?path=80302&room=all
 $data = $_SERVER['QUERY_STRING'];
 $feed=$_GET['path'];
 //echo($data);
 $room="all";
 $str= "?room=".$room;
-//echo($str."\n\n");
+//198.23.156.78/hsc/feed/80302?room=all
                                                              
 $ch = curl_init('198.23.156.78/hsc/feed/'.$feed.'?'.$data);                                                                      
 curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");                                                         

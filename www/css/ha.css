@@ -1,3 +1,112 @@
+
+
+.button-big{
+	position:relative;
+	float:left;
+}
+.button-big.div{
+
+}
+.button-big a {
+	margin:6px;
+	background:white;
+   width: 90px; /*div height is set by img size+padding, width=110 otherwise goes to screenwidth*/
+   display: block; /*otherwise button will shrink to text size*/
+   padding:4px;
+   border-top: 1px solid #96d1f8;
+   -webkit-border-radius: 10px;
+   -moz-border-radius: 10px;
+   border-radius: 10px;
+   -webkit-box-shadow: rgba(0,0,0,1) -2px 2px 4px;
+   -moz-box-shadow: rgba(0,0,0,1) -2px 2px 4px;
+   box-shadow: rgba(0,0,0,1) -2px 2px 4px;
+   /*text-shadow: rgba(1,0,0,.4) 0 2px 0; */
+}
+.button-big a .ui-link{
+}
+
+.button-big span{
+	text-decoration: none;
+	position: absolute;
+	bottom:15px;
+	left:40px;
+	font-size: 2.3em;
+	font-family: "Trebuchet MS", Helvetica, sans-serif; 
+	color: #D43300;
+  		/*font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+		font-family: Tahoma, Geneva, sans-serif;
+		font-family: Georgia, serif;
+  		font-family: "Comic Sans MS", cursive, sans-serif;
+   		font-family: Arial, Helvetica, sans-serif;
+		font-family: Verdana, Geneva, sans-serif;*/
+}
+.button-big a:hover {
+   border-top-color: #28597a;
+   background: #28597a;
+   opacity:0.9;
+}
+
+.button-big img{
+	border-radius: 10px;
+	height:90px;
+}
+.boost-div {
+	background:yellow;
+	color:red;	
+	display:block;
+	width:320px;
+	height:220px;
+	//float:left;
+	border:6px;
+	padding: 6px 0 0 6px;
+}
+.boost-inputs {
+	margin-top:6px;
+	padding:4px;
+	float:left;
+	//:#D5C200; /*to see borders of div*/
+	display:block;
+	height:124px;
+	width:200px;
+} 
+.boost-hrs {
+	margin-top:0px;
+	padding:0 20px 0 20px;
+	float:left;
+	//background:#D5C200; /*to see borders of div*/
+	display:block;
+	height:78px;
+	width:270px;
+} 
+.set-div {
+	background:#B1E9CF;
+	color:blue;	
+	display:block;
+	width:320px;
+	height:280px;
+	//float:left;
+	border:6px 6px 6px 6px;
+	padding: 0px 0 0 6px;
+}
+.set-inputs {
+	margin-top:0px;
+	padding:0 20px 0 20px;
+	float:left;
+	//background:#87E6CF; /*to see borders of div*/
+	display:block;
+	height:160px;
+	width:270px;
+} 
+.set-buttons {
+	margin-top:0px;
+	padding:13px 0px 0 10px;
+	float:left;
+	//background:#87E6CF; /*to see borders of div*/
+	display:block;
+	height:100px;
+	width:200px;
+} 
+
 .timest {
     float: right;
     font-size: .6em;
@@ -11,7 +120,14 @@
 		color: white;
 }
 #rooms{margin-top: .1em;}
-
+#boost-sl  {display : none;}
+a.btn-big {
+	color:green;
+	height:80px;
+	width: 80px;
+	background-image: url(../'img/hcsbs.jpg') !important;
+}
+.ui-icon-boost {background-image: url('../img/hcsbs.jpg'); width:80px; height:60px;}
 
 /* Start with core styles outside of a media query that apply to mobile and up */
 /* Global typography and design elements, stacked containers */
@@ -26,26 +142,43 @@ H1 { color: green; }
 
 .head-img {float:left;}
 .head-img img {width:150px; height:100px;}
-.head-txt {float:left; width:120px; margin:6px; font-family:"Arial Black", Gadget, sans-serif;}
-.head-temp {height:75px;font-size:3em; float:right; margin:6px;}
+.head-txt {float:left; width:120px; margin:4px; font-family:"Arial Black", Gadget, sans-serif;}
+.head-temp {height:75px;font-size:3em; float:right; margin:4px;}
 .head-rm-name {float:right;}
+.head-menu {
+	float:left; 
+	background: rgba(0,0,0,.4); 
+	color: rgba(0,0,0,.4);
+	position:absolute;
+	left:280px;
+	top:2px;
+	width:30px;
+}
 
 /* Stack the two content containers */
 .main{border:2px solid green;}
-.col1 { display:block; width:100%;}
-.col1 .col1a{border:2px solid red;}
-.col1 .col1b{border:2px solid blue;}
-.col2 { width:100%; border:2px solid green;}
-.col3 { width:100%; border:2px solid yellow;}
+.col1 { display:block; width:100%; margin:0}
+.col1 .col1a{border:0px solid red;}
+.col1 .col1b{border:0px solid blue;}
+.col2 { width:100%; border:0px solid green;}
+.col3 { width:100%; border:0px solid yellow;}
 
 /* First breakpoint at 576px */
 /* Inherits mobile styles, but floats containers to make columns */
 @media all and (min-width: 36em){
-	.main { float: left; width:30%; }
-	.col1 { float: left; width:48%; }
-	.col2 { float: left; width:48%; }	
-	.col3 { float: left; width:48%; }		
+		.main { float: left; width:30%; }
+		.col1 { float: left; width:48%; }
+		.col2 { float: left; width:48%; }	
+		.col3 { float: left; width:48%; }		
+	.head-menu {
+	    float:left;
+		background: rgba(0,0,0,.4); 
+		color: rgba(0,0,0,.4);
+		position:relative;
+		display:inline;
+	}
 }
+
 
 /* Second breakpoint at 800px */
 /* Adjusts column proportions, tweaks base H1 */
@@ -66,4 +199,6 @@ H1 { color: green; }
 		padding: 4px;
 	}
 }
-
+#page-room.ui-content{
+	padding:0;
+}
