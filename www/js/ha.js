@@ -48,7 +48,7 @@ $('#main-page').live('pageinit', function(event) {
 	$('.room-li').click(function() {
 		rsid= jQuery(this).attr("id");
 		rid = rsid.substring(2);
-		fillRoom(rid);
+		initAroom(rid);
 		console.log(rid);
 	});
 });//end of pageinit????
@@ -65,12 +65,12 @@ $('#aroom').live('pageinit', function(event) {
 	});
 	$(".arm-prev").click(function() {
 		hid=$('.head-rm-name').data("rmid");
-		fillRoom(prev(hid));
+		refreshRoom(prev(hid));
 	  	return false;
 	});
 	$(".arm-next").click(function() {
 		hid=$('.head-rm-name').data("rmid");		
-		fillRoom(next(hid));
+		refreshRoom(next(hid));
 	  	return false;
 	});	
 	$("#slider-setpt").change(function(e){ //on moving slider	
@@ -108,7 +108,7 @@ function getData(){
 		console.log(data.items);
 		therooms = data.items;
 		putData(therooms);
-		initAroom(0);
+		fillRoom(0);
 	});
 }
 function putData(therooms){
@@ -189,37 +189,32 @@ function a2f(temp) {
 	//console.log(tftemp);	
 	return tftemp;
 }
-function fillRoom(rid){
-		rom=rooms[rid];
-		tom=therooms[rid];
-		console.log(rom);
-		$('.head-rm-name').html(rom.rname);
-		$('.head-rm-name').data("rmid",rid);
-		$('.head-temp').html(a2f(tom.temp)+"&deg");
-		ima = b64[rom.room];
-		imag='<img src="data:image/jpeg;charset=utf-8;base64, '+ima+'">';
-		$('.head-img').html(imag);
-		$('.button-setpt').html(a2f(tom.setpt));
-		$.mobile.changePage($("#aroom"), "slide", true, true);
-		console.log(rooms[rid].rname);
-		console.log(tom);	
-}
 function initAroom(rid){
-	    console.log("in initAroom");
-		rom=rooms[rid];
-		tom=therooms[rid];
-		console.log(rom);
-		$('.head-rm-name').html(rom.rname);
-		$('.head-rm-name').data("rmid",rid);
-		$('.head-temp').html(a2f(tom.temp)+"&deg");
-		ima = b64[rom.room];
-		imag='<img src="data:image/jpeg;charset=utf-8;base64, '+ima+'">';
-		$('.head-img').html(imag);
-		$('.button-setpt').html(a2f(tom.setpt));	
-		console.log(rooms[rid].rname);
-		console.log(tom);	
+	fillRoom(rid);
+	$.mobile.changePage($("#aroom"), "slide", true, true);
+	console.log(rooms[rid].rname);
+	console.log(tom);	
+}
+function fillRoom(rid){
+    console.log("in fillRoom");
+	rom=rooms[rid];
+	tom=therooms[rid];
+	console.log(rom);
+	$('.head-rm-name').html(rom.rname);
+	$('.head-rm-name').data("rmid",rid);
+	$('.head-temp').html(a2f(tom.temp)+"&deg");
+	ima = b64[rom.room];
+	imag='<img src="data:image/jpeg;charset=utf-8;base64, '+ima+'">';
+	$('.head-img').html(imag);
+	$(".button-setpt span").html(a2f(tom.setpt*2)+"&deg;");
+	console.log(rooms[rid].rname);
+	console.log(tom);	
 }
 
+function refreshRoom(rid){
+	fillRoom(rid);
+	//$('#aroom').listview('refresh');
+}
 function prev(hid){
 	if (hid==0){hid= numrooms-1;}else{hid--;}
 	console.log(hid);
