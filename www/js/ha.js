@@ -88,6 +88,12 @@ $('#aroom').live('pageinit', function(event) {
 		$("#datetime-set-til").show();		
 	  	return false;
 	});	
+	$(".button-setpt").click(function() {
+		console.log("clicked button-setpt");
+		
+		$.mobile.changePage($("#dialog-setpt"), "pop", true, true);	
+	  	return false;
+	});	
 });//end of pageinit????
 
 function initMainPage(){
@@ -188,6 +194,10 @@ function a2f(temp) {
 	}else {tftemp = Math.round(temp/16*9/5+32);}	
 	//console.log(tftemp);	
 	return tftemp;
+}
+function f2a(ftemp) {
+	atemp= Math.round((ftemp-32)*8*5/9);	
+	return atemp;
 }
 function initAroom(rid){
 	fillRoom(rid);

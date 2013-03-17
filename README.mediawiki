@@ -1,5 +1,23 @@
 ==homecontrol.sitebuilt.net==
+====system versions -arduino+server code====
+=====version C - /hsc/index.php /services/putSetptArr.php =====
+Cron calls have to build the data into the URL so they will look like:
+ http://homecontrol.sitebuilt.net/services/putSetpt.php?feed=80302&type=prog&sensor=6&setpt=167
+Not a PUT but in Curl it gets converted for the rest api as a PUT with data encoded  
+ $bdata=json_encode($data);   
+ curl_setopt($ch, CURLOPT_POSTFIELDS,$bdata);
+ http://198.23.156.78/hsc/prog/80302/4
+:$req = RestUtils::processRequest()- index.php starts with this. The request object has...
+::$path =$req->getPathArr()-  path[0]=hsc(the db name), path[1]=80303=2(the feed id), path[3]=sensor#
+::$data=$req->getData() - rest.api finds the data depending on PUT GET POST etc setpt=167
+Index.php looks at PUT||GET||POST, feed||prog, and sensor||noSensor to determine what to do.
 
+:updateSetptArr($db, $path, $data); - appends to setPtArr one value	
+when PUT/feed/ fires it first grabs any new setpts from the db, then echo's it back to the Arduino and then zero's it out. 				
+ $se = getSetptArr($db, $path);
+ echo $se;
+ zeroSetptArr($db, $path); 
+ 
 {{:header-menu}}
 #First Commit has ha and hrwd shell with header done and rwd for panels working
 #tasks
