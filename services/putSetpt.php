@@ -15,7 +15,7 @@ $data['setpt']=$setpt;
 $bdata=json_encode($data);
 //echo $bdata ."\n";
 
-//198.23.156.78/hsc/feed/80302?room=all
+//http://198.23.156.78/hsc/prog/80302/4
                                                              
 $ch = curl_init('198.23.156.78/hsc/prog/'.$feed.'/'.$sensor.'/');                                                                      
 curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");                                                         

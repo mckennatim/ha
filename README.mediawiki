@@ -1,4 +1,40 @@
 ==homecontrol.sitebuilt.net==
+====http://[[homecontrol]].sitebuilt.net jquery-mobile app====
+====version-D prog data and hold data ====
+Will be combining dialog for boost and hold. Working to have /feed do the following extra tasks
+	getTodayLTEnow(); //(calls updateSetptArr())
+	ckHolds($db, $req); //(calls updateSetptArr())
+	$se = getSetptArr($db, $path);
+	echo $se; //sends it to arduino
+	zeroSetptArr($db, $path);	
+
+Have been using the dialog pages as test pages for moving prog data and hold data through system.
+:post of new program data (was getting tested boost-yes button )
+<syntaxhighlight>
+//{"feed":"80302","ckts":[[{"time":"9:30","setpt":"147"},null,null,null,null,null,{"time":"9:30","setpt":"147"}],null,null,null,null,null,null,null,null,null,null,[{"time":"9:30","setpt":"147"},null,null,null,null,null,{"time":"9:30","setpt":"147"}]]}
+	schedJ =JSON.stringify(sched);
+	console.log(schedJ);
+	console.log(ckt.length);
+	console.log(sched.ckts[11]==null);
+	console.log(sched.ckts[11][7]==null);
+	$.post("../services/newProg.php", {data: schedJ}).done(function(data){
+			alert("Data Loaded: " + data);
+</syntaxhighlight>
+::this data tracks through newProg.php and then to http://198.23.156.78/hsc/prog/80302 as a a JSON post string
+:post of new hold/boost entry (was getting tested in hold-yes button)
+<syntaxhighlight>
+	$(".hold-yes").click(function() {	
+		console.log("clicked hold-yes");		
+		holdS='{"feed":"80302","ckt":99,"start":1363707975,"finish":1364000000,"setpt":140}';
+		holdArr = JSON.parse(holdS);
+		holdStr =JSON.stringify(holdArr);
+		console.log(holdArr);
+		$.post("../services/hold.php", {data: holdStr}).done(function(data){
+  			alert("Data Loaded: " + data);
+		});
+	  	return false;
+	});		
+</syntaxhighlight>
 ====system versions -arduino+server code====
 =====version C - /hsc/index.php /services/putSetptArr.php =====
 Cron calls have to build the data into the URL so they will look like:

@@ -89,13 +89,38 @@ $('#aroom').live('pageinit', function(event) {
 	  	return false;
 	});	
 	$(".button-setpt").click(function() {
-		console.log("clicked button-setpt");
-		
+		console.log("clicked button-setpt");		
 		$.mobile.changePage($("#dialog-setpt"), "pop", true, true);	
+	  	return false;
+	});	
+	$(".button-boost").click(function() {
+		console.log("clicked button-boost");		
+		$.mobile.changePage($("#dialog-boost"), "pop", true, true);	
 	  	return false;
 	});	
 });//end of pageinit????
 
+$('#dialog-boost').live('pageinit', function(event) {
+	$(".boost-yes").click(function() {
+
+	  	return false;
+	});
+});//end of pageinit????
+	
+$('#dialog-setpt').live('pageinit', function(event) {	
+	$(".hold-yes").click(function() {	
+		console.log("clicked hold-yes");		
+		holdS='{"feed":"80302","ckt":99,"start":1363707975,"finish":1364000000,"setpt":140}';
+		holdArr = JSON.parse(holdS);
+		holdStr =JSON.stringify(holdArr);
+		console.log(holdArr);
+		$.post("../services/hold.php", {data: holdStr}).done(function(data){
+  			alert("Data Loaded: " + data);
+		});
+	  	return false;
+	});			
+});//end of pageinit????
+	
 function initMainPage(){
 	$.each(rooms, function(index, room) {
 		ima = b64[room.room];
@@ -256,3 +281,32 @@ time: "1363038504"
 
 */
 
+/* old boost-yes
+		console.log("clicked boost-yes");		
+		sched= new Object();
+		ts=new Object();
+		ts.time = "9:30";
+		ts.setpt = "147";
+		day = new Array();
+		day[0]=ts;
+		day[6] =ts;
+		ckt= new Array();
+		ckt[0] =day; 
+		ckt[11] =day; 
+		sched.feed= "80302";
+		sched.ckts= ckt;
+		console.log(day);
+		console.log(ckt);
+		console.log(sched);
+		console.log(sched.ckts[11]);
+		console.log(sched.ckts[11][0].time);
+//{"feed":"80302","ckts":[[{"time":"9:30","setpt":"147"},null,null,null,null,null,{"time":"9:30","setpt":"147"}],null,null,null,null,null,null,null,null,null,null,[{"time":"9:30","setpt":"147"},null,null,null,null,null,{"time":"9:30","setpt":"147"}]]}
+		schedJ =JSON.stringify(sched);
+		console.log(schedJ);
+		console.log(ckt.length);
+		console.log(sched.ckts[11]==null);
+		console.log(sched.ckts[11][7]==null);
+		$.post("../services/newProg.php", {data: schedJ}).done(function(data){
+  			alert("Data Loaded: " + data);
+ */ 			
+		});
