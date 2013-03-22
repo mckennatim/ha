@@ -19,7 +19,7 @@ ChromePhp::log($dataPUTj);
 //$rog ='{"feed":"80302","ckt":4,"start":1363707975,"finish":1363688100,"setpt":167}';
 //echo$frog;
 
-$ch = curl_init('198.23.156.78/hsc/prog/'.$feed.'/'.$ckt);                                                                      
+$ch = curl_init('198.23.156.78/hsc/boho/'.$feed.'/'.$ckt);                                                                      
 //curl_setopt($ch,CURLOPT_POST,1000);  
 curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");                                                           
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true); 

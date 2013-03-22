@@ -145,8 +145,7 @@
 					</div><!--button-big-->			
 					<div class="set-buttons">
 						<p>
-						    <a href="#" data-role="button" data-inline="true" data-mini="true">Hold</a>
-						    <a href="#" data-role="button" data-inline="true" data-mini="true">Release</a>
+						    <a class="release" href="#" data-role="button" data-inline="true" data-mini="true">Release</a>
 						</p>    </br>
 						    <p>until  &darr;<a id="datetime34">
 						    	<img src="http://homecontrol.sitebuilt.net/www/img/icons/datetime34-64.png" title="set until..."/>
@@ -185,8 +184,38 @@ A policy of extending a country's power and influence through diplomacy or milit
         <h3>Current Status of Heating System</h3>
     </div><!-- /footer -->
 </div>	
+<!--dialog-boho-->
+<div id="dialog-boho" class="test-buttons" data-role="dialog">     
+	<div data-role="header">
+		<a href="#main" data-icon="back"  id="goback" ...data-role="button" >home</a>
+			<h2>testpg</h2>
+	</div><!-- /header -->       
+	<div data-role="content">	
+		<div id="about">
+		<p class= "bohoM"></p>
+		<a class="hold-yes" href="#" data-role="button" data-inline="true" data-mini="true" >just this room </a>
+		<a class="hold-all-yes" href="#" data-role="button" data-inline="true" data-mini="true" > all rooms </a>
+		</div>
+		</div> 
+	</div><!-- /content -->
+</div><!-- /page --> 
+<!--dialog-release-->
+<div id="dialog-release" class="test-buttons" data-role="dialog">     
+	<div data-role="header">
+		<a href="#main" data-icon="back"  id="goback" ...data-role="button" >home</a>
+			<h2>testpg</h2>
+	</div><!-- /header -->       
+	<div data-role="content">	
+		<div id="about">
+		<p class= "releaseM"></p>
+		<a class="release-this" href="#" data-role="button" data-inline="true" data-mini="true" >just this room </a>
+		<a class="release-all" href="#" data-role="button" data-inline="true" data-mini="true" > all rooms </a>
+		</div>
+		</div> 
+	</div><!-- /content -->
+</div><!-- /page --> 
 <!--dialog-setpt-->
-<div data-role="dialog" id="dialog-setpt" data-overlay-theme="e">
+<div data-role="dialog" id="dialog-setpt" class="test-buttons" data-overlay-theme="e">
   <div data-role="header">
     <h2>Really?</h2>
   </div>
@@ -201,12 +230,12 @@ A policy of extending a country's power and influence through diplomacy or milit
 </body>	
 </html>	
 <!--dialog-boost-->
-<div data-role="dialog" id="dialog-boost" data-overlay-theme="e">
+<div data-role="dialog" id="dialog-boost" class="test-buttons" data-overlay-theme="e">
   <div data-role="header">
     <h2>Really?</h2>
   </div>
   <div data-role="content">
-    <p>Do you really want to boost the dog temp </p>
+    <p class="boost-message">Do you really want to boost the dog temp </p>
 	<p>
 	    <a class="boost-yes" href="#" data-role="button" data-inline="true" data-mini="true">Yes</a>
 	    <a href="#" data-role="button" data-inline="true" data-mini="true">No</a>

@@ -1,7 +1,7 @@
 <?php
 include('/usr/local/lib/tm/ChromePhp.php');
 $dataStr=$_POST['data'];
-ChromePhp::log($dataStr);s
+ChromePhp::log($dataStr);
 
 $frog=stripslashes($dataStr);
 $dog = json_decode($frog);

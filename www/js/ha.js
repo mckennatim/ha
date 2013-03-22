@@ -1,3 +1,4 @@
+console.log("line1 of ha.js");
 var b64img;
 var feed = "80302";
 var rooms;
@@ -10,7 +11,17 @@ var black= "rgba(0,0,0,.75)";
 var hid = 0; //aroom header data roomid
 var therooms = new Object();
 /*intialize app -- if not already in local storage*/
+var params =new Object();
+var MAXCKTS = 12;
+params['MAXCKTS']=MAXCKTS;
+params['boostSetpt']=74;
+params['holdForDays']=30;
 
+//var bohoA = new Array();
+var bohoA = new Object();
+var bohoS ="doogypoo";
+var bohoM="nothing to say";
+var releaseCkt;
 
 day = ["Sun", "Mon", "Tues", "Wed", "Thu", "Fri", "Sat" ];
 sday = ["Su", "M", "T", "W", "Th", "F", "S" ];
@@ -18,6 +29,7 @@ sday = ["Su", "M", "T", "W", "Th", "F", "S" ];
 $('#main-page').live('pageinit', function(event) {
 	console.log('in live pageinit for main-page');
 	//console.log(b64.livingroom);
+	//getParams();
 	getRoomList();
  	getRoomImages();
 	initMainPage();
@@ -64,11 +76,13 @@ $('#aroom').live('pageinit', function(event) {
 	  return false;
 	});
 	$(".arm-prev").click(function() {
+		//getData();
 		hid=$('.head-rm-name').data("rmid");
 		refreshRoom(prev(hid));
 	  	return false;
 	});
 	$(".arm-next").click(function() {
+		//getData();
 		hid=$('.head-rm-name').data("rmid");		
 		refreshRoom(next(hid));
 	  	return false;
@@ -89,36 +103,140 @@ $('#aroom').live('pageinit', function(event) {
 	  	return false;
 	});	
 	$(".button-setpt").click(function() {
-		console.log("clicked button-setpt");		
-		$.mobile.changePage($("#dialog-setpt"), "pop", true, true);	
-	  	return false;
+		console.log("clicked button-boost");	
+		hoSetpt=$("#slider-setpt").val();	
+		bft=$("#datetime-set-til").val();
+		bst=new Date();
+		bs_time=Date.parse(bst)/1000;
+		if (bft.length==0){
+			bft=new Date();
+			bft.setDate(bft.getDate() + params['holdForDays']);
+		}
+		bs_time=Date.parse(bst)/1000;
+		bf_time=Date.parse(bft)/1000;
+		console.log(bst);
+		console.log(bft);
+		//console.log(bs_time);
+		//console.log(bf_time);
+		console.log(hoSetpt);
+		ckt=$('.head-rm-name').data("rmid");	
+		//boho[ckt]=hoSetpt;
+		bohoA.feed=feed;
+		bohoA.ckt=ckt;
+		bohoA.start= bs_time;
+		bohoA.finish=bf_time;
+		bohoA.setpt=f2a(hoSetpt);
+		console.log(bohoA);
+		//console.log(boho);
+		bohoS= JSON.stringify(bohoA);
+		//bohoS='{"feed":"'+feed+'","ckt":'+ckt+',"start":'+bs_time+',"finish":'+bf_time+',"setpt":'+f2a(hoSetpt)+'}';
+		bohoM ="Hold "+rooms[ckt].rname+" at "+hoSetpt+"&deg;  until "+bft;
+		console.log(bohoS);
+		console.log(bohoM)
+		$('.bohoM').html(bohoM);
+		$('.hold-all-yes').show();
+		$.mobile.changePage($("#dialog-boho"), "pop", true, true);
 	});	
+	$(".release").click(function() {
+		/*delete records from holds for this room or all rooms, send current room id */
+		releaseM = "Release boosts and holds  for this room or all rooms";
+		$('.releaseM').html(releaseM);
+		releaseCkt=$('.head-rm-name').data("rmid");	
+		$.mobile.changePage($("#dialog-release"), "pop", true, true);
+	});
 	$(".button-boost").click(function() {
 		console.log("clicked button-boost");		
-		$.mobile.changePage($("#dialog-boost"), "pop", true, true);	
+		bst=$("#time-boost").val();
+		d=new Date();
+		when='now';
+		if (bst.length>0){
+			hr =bst.split(':')[0];
+			min = bst.split(':')[1];
+			d.setHours(hr);
+			d.setMinutes(min);
+			when='at '+bst;
+		}
+		forhrs=$("#slider-boost-hrs").val();
+		bs_time=Date.parse(d)/1000;
+		bf_time=bs_time+forhrs*60*60;
+		console.log(params['boostSetpt']);
+		ckt=$('.head-rm-name').data("rmid");	
+		//boho[ckt]=params['boostSetpt'];
+		bohoA.feed=feed;
+		bohoA.ckt=ckt;
+		bohoA.start= bs_time;
+		bohoA.finish=bf_time;		
+		bohoA.setpt=f2a(params['boostSetpt']);
+		console.log(bohoA);
+		bohoS= JSON.stringify(bohoA);
+		//bohoS='{"feed":"'+feed+'","ckt":'+ckt+',"start":'+bs_time+',"finish":'+bf_time+',"setpt":'+f2a(hoSetpt)+'}';
+		bohoM ="Boost "+rooms[ckt].rname+" to "+params['boostSetpt']+"&deg; "+when+" for "+forhrs+" hour(s)";
+		console.log(bohoS);
+		console.log(bohoM);
+		$('.bohoM').html(bohoM);
+		$('.hold-all-yes').hide();
+		$.mobile.changePage($("#dialog-boho"), "pop", true, true);	
 	  	return false;
 	});	
 });//end of pageinit????
 
-$('#dialog-boost').live('pageinit', function(event) {
-	$(".boost-yes").click(function() {
-
-	  	return false;
-	});
-});//end of pageinit????
-	
-$('#dialog-setpt').live('pageinit', function(event) {	
-	$(".hold-yes").click(function() {	
-		console.log("clicked hold-yes");		
-		holdS='{"feed":"80302","ckt":99,"start":1363707975,"finish":1364000000,"setpt":140}';
-		holdArr = JSON.parse(holdS);
-		holdStr =JSON.stringify(holdArr);
-		console.log(holdArr);
-		$.post("../services/hold.php", {data: holdStr}).done(function(data){
+$('#dialog-release').live('pageinit', function(event) {
+	$(".release-this").click(function() {
+		ckt=releaseCkt;
+		dhStr='feed='+feed+'&ckt='+ckt;
+		console.log(dhStr);
+		$.get("../services/deleteHold.php",  dhStr).done(function(data){
   			alert("Data Loaded: " + data);
 		});
+		$.mobile.changePage($("#aroom"));
 	  	return false;
-	});			
+	});
+	$(".release-all").click(function() {
+		ckt=99;
+		dhStr='feed='+feed+'&ckt='+ckt;
+		console.log(dhStr);
+		$.get("../services/deleteHold.php",  dhStr).done(function(data){
+  			alert("Data Loaded: " + data);
+		});		
+		$.mobile.changePage($("#aroom"));		
+	  	return false;
+	});	
+});//end of pageinit????
+	
+$('.test-buttons').live('pageinit', function(event) {	
+	$(".hold-yes").click(function() {	
+		console.log("clicked hold-yes");		
+		//holdS='{"feed":"80302","ckt":99,"start":1363707975,"finish":1364000000,"setpt":133}';
+		//holdArr = JSON.parse(holdS);
+		//holdStr =JSON.stringify(holdArr);
+		holdStr=bohoS;
+		console.log(holdStr);
+		$.post("../services/hold.php", {data: holdStr}).done(function(data){
+  			//alert("Data Loaded: " + data);
+		});
+		$.mobile.changePage($("#aroom"));
+	  	return false;
+	});
+	$(".hold-all-yes").click(function() {	
+		console.log("clicked hold-all-yes");		
+		//holdS='{"feed":"80302","ckt":99,"start":1363707975,"finish":1364000000,"setpt":133}';
+		//holdArr = JSON.parse(holdS);
+		//holdStr =JSON.stringify(holdArr);
+		//for (i=0;i<MAXCKTS;i++){
+			//boho[i]=s2f(bohoA.setpt);
+		//}
+		//.log(boho);
+		bohoA.ckt=99;
+		console.log(bohoA);
+		bohoS= JSON.stringify(bohoA);
+		holdStr=bohoS;
+		console.log(holdStr);
+		$.post("../services/hold.php", {data: holdStr}).done(function(data){
+  			//alert("Data Loaded: " + data);
+		});
+		$.mobile.changePage($("#aroom"));
+	  	return false;
+	});				
 });//end of pageinit????
 	
 function initMainPage(){
@@ -220,6 +338,14 @@ function a2f(temp) {
 	//console.log(tftemp);	
 	return tftemp;
 }
+function s2f(temp) {
+	//console.log(temp);
+	if (temp==null || temp==0){
+		tftemp="--";
+	}else {tftemp = Math.round(temp/8*9/5+32);}	
+	//console.log(tftemp);	
+	return tftemp;
+}
 function f2a(ftemp) {
 	atemp= Math.round((ftemp-32)*8*5/9);	
 	return atemp;
@@ -241,7 +367,8 @@ function fillRoom(rid){
 	ima = b64[rom.room];
 	imag='<img src="data:image/jpeg;charset=utf-8;base64, '+ima+'">';
 	$('.head-img').html(imag);
-	$(".button-setpt span").html(a2f(tom.setpt*2)+"&deg;");
+	$(".button-setpt span").html(s2f(tom.setpt)+"&deg;");
+	$(".button-boost span").html(params['boostSetpt']+"&deg;");
 	console.log(rooms[rid].rname);
 	console.log(tom);	
 }
@@ -251,12 +378,18 @@ function refreshRoom(rid){
 	//$('#aroom').listview('refresh');
 }
 function prev(hid){
-	if (hid==0){hid= numrooms-1;}else{hid--;}
+	if (hid==0){
+		hid= numrooms-1;
+		//getData();
+	}else{hid--;}
 	console.log(hid);
 	return hid;
 }
  function next(hid){
-	if (hid==numrooms-1){hid=0;}else{hid++;} 
+	if (hid==numrooms-1){
+		hid=0;
+		getData();
+	}else{hid++;} 
 	console.log(hid);	
 	return hid;
 	
@@ -307,6 +440,5 @@ time: "1363038504"
 		console.log(sched.ckts[11]==null);
 		console.log(sched.ckts[11][7]==null);
 		$.post("../services/newProg.php", {data: schedJ}).done(function(data){
-  			alert("Data Loaded: " + data);
- */ 			
-		});
+  			alert("Data Loaded: " + data);		
+		}); */ 	
