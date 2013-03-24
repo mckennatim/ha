@@ -87,9 +87,9 @@
 </div>
 	
 
-<div data-role="page" data-theme="d" id="aroom" data-url="aroom">
+<div data-role="page" data-theme="b" id="aroom" data-url="aroom">
 <div class="head-rm">	
-	<header data-role="header" data-position="fixed" >
+	<header data-role="header" data-position="fixed" data-theme="b">
 		<div class="head-img">
 			<img src="http://homecontrol.sitebuilt.net/www/img/small/peris.JPG" />
 		</div>	
@@ -101,14 +101,14 @@
 				70&deg;
 			</div>
 	</div><!--head-txt-->
-	<div class="head-menu" data-role="controlgroup"  data-mini="true">
-    <a class="arm-prev" href="#" data-role="button" data-iconpos="notext" data-icon="arrow-l" data-theme="a">prev</a>
-    <a class="arm-next" href="#" data-role="button" data-iconpos="notext" data-icon="arrow-r" data-theme="a">next</a>
-    <a href="#main-page" data-role="button" data-iconpos="notext" data-icon="home" data-theme="a">home</a>  
+	<div class="head-menu" data-role="controlgroup"  data-mini="true" data-theme="b">
+    <a class="arm-prev" href="#" data-role="button" data-iconpos="notext" data-icon="arrow-l" >prev</a>
+    <a class="arm-next" href="#" data-role="button" data-iconpos="notext" data-icon="arrow-r" >next</a>
+    <a href="#main-page" data-role="button" data-iconpos="notext" data-icon="home" >home</a>  
 </div>
 	</header>
 </div>
-    <div id="page-room" data-role="content" class="my-page" data-theme="d">		
+    <div id="page-room" data-role="content" class="my-page" data-theme="b">		
 		<div class="col1">
 			<div class="col1a">
 				<div class="boost-div">
@@ -118,17 +118,19 @@
 							<img src="http://homecontrol.sitebuilt.net/www/img/icons/clock34.png" title="click clock to set start time" />	
 						</a></label>
 				    	<input type="time" data-clear-btn="true" name="time-boost" id="time-boost">
-						<label for="slider-boost-hrs">Boost temp for
-							<img src="http://homecontrol.sitebuilt.net/www/img/icons/timer34.png" />
-						</label>	
 					</div><!--boost-inputs-->
+					<div class"boost-button">
 				    <div class="button-big">
 						<a class="button-boost" href="#" data-rel="dialog">
 							<img src="http://homecontrol.sitebuilt.net/www/img/icons/boost80.png" title="click to boost temp"/>
 							<span >69&deg;</span>				
 						</a>
 					</div><!--button-big-->
+					</div>
 					<div class="boost-hrs">
+						<label for="slider-boost-hrs">Boost temp for
+							<img src="http://homecontrol.sitebuilt.net/www/img/icons/timer34.png" />
+						</label>	
 						<input type="range" name="slider-boost-hrs" id="slider-boost-hrs" value="1" min="0" max="8" step=".25" />
 						<label>hour(s).</label>
 					</div><!--boost-hrs-->			
@@ -158,10 +160,33 @@
 					</div><!--set-inputs-->
 				</div><!--set-div-->	
 			</div><!--col1b-->
-		</div><!--col1-->
-		
+			<div class="col1c">
+				<div class="prog-div">
+					<h4>Program </h4>
+				    <div class="button-big">
+						<a class="button-prog" href="#" data-rel="dialog">
+							<img src="http://homecontrol.sitebuilt.net/www/img/icons/setpt80.png" />
+							<span >71&deg;</span>				
+						</a>
+					</div><!--button-big-->			
+					<div class="prog-buttons">
+						<p>
+						    <a class="prog-b1" href="#" data-role="button" data-inline="true" data-mini="true">Release</a>
+						</p>    </br>
+						    <p>until  &darr;<a id="prog-datetime-img">
+						    	<img src="http://homecontrol.sitebuilt.net/www/img/icons/datetime34-64.png" title="set until..."/>
+					    	</a></p>	
+					</div><!--set-buttons-->
+					<div class="prog-inputs">
+				    	<input type="datetime-local" data-clear-btn="false" name="prog-datetime" id="prog-datetime" >
+						<label for="slider-prog">Adjust Set point to:</label>
+						<input type="range" name="slider-prog" id="slider-prog"  min="55" max="80" value="64"/>
+					</div><!--prog-inputs-->
+				</div><!--prog-div-->	
+			</div><!--col1c-->			
+		</div><!--col1-->		
 		<div class="col2">
-						        <label for="slider-2">social darwinismr:</label>
+		<label for="slider-2">social darwinismr:</label>
 		<input type="range" name="slider-2" id="slider-2" value="60" min="0" max="100" />
 			<p>Foreign Policy
 social Darwinism
@@ -184,6 +209,21 @@ A policy of extending a country's power and influence through diplomacy or milit
         <h3>Current Status of Heating System</h3>
     </div><!-- /footer -->
 </div>	
+<!--dialog-prog-->
+<div id="dialog-prog" class="test-buttons" data-role="dialog">     
+	<div data-role="header">
+		<a href="#main" data-icon="back"  id="goback" ...data-role="button" >home</a>
+			<h2>testpg</h2>
+	</div><!-- /header -->       
+	<div data-role="content">	
+		<div id="about">
+		<p class= "progM"></p>
+		<a class="prog-this" href="#" data-role="button" data-inline="true" data-mini="true" >just this room </a>
+		<a class="prog-all" href="#" data-role="button" data-inline="true" data-mini="true" > all rooms </a>
+		</div>
+		</div> 
+	</div><!-- /content -->
+</div><!-- /page -->
 <!--dialog-boho-->
 <div id="dialog-boho" class="test-buttons" data-role="dialog">     
 	<div data-role="header">

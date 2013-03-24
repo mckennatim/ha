@@ -1,4 +1,7 @@
 
+#page-room{
+	background:#12F2E9;
+}
 
 .button-big{
 	position:relative;
@@ -50,13 +53,18 @@
 	border-radius: 10px;
 	height:90px;
 }
-.boost-div {
+.col1a{
 	background:yellow;
+}
+.boost-div {
+	margin:auto;
+	width:300px;
+	background:#A0D800; /*to see borders of div*/
 	color:red;	
 	display:block;
-	width:320px;
-	height:220px;
-	//float:left;
+	/*width:320px;*/
+	height:250px;
+	/*float:left;*/
 	border:6px;
 	padding: 6px 0 0 6px;
 }
@@ -64,22 +72,29 @@
 	margin-top:6px;
 	padding:4px;
 	float:left;
-	//:#D5C200; /*to see borders of div*/
+	background:#EACF00; /*to see borders of div*/
 	display:block;
-	height:124px;
-	width:200px;
+	height:108px;
+	width:180px;
 } 
+.boost-button{
+	float:right;
+	background:green;
+}
 .boost-hrs {
 	margin-top:0px;
-	padding:0 20px 0 20px;
+	padding:0 10px 0 10px;
 	float:left;
-	//background:#D5C200; /*to see borders of div*/
+	background:#D5C200; /*to see borders of div*/
 	display:block;
-	height:78px;
-	width:270px;
+	height:104px;
+	width:240px;
 } 
-.set-div {
+.col1b{
 	background:#B1E9CF;
+}
+.set-div {
+	/*background:#B1E9CF;*/
 	color:blue;	
 	display:block;
 	width:320px;
@@ -92,7 +107,7 @@
 	margin-top:0px;
 	padding:0 20px 0 20px;
 	float:left;
-	//background:#87E6CF; /*to see borders of div*/
+	background:#87E6CF; /*to see borders of div*/
 	display:block;
 	height:160px;
 	width:270px;
@@ -101,12 +116,17 @@
 	margin-top:0px;
 	padding:13px 0px 0 10px;
 	float:left;
-	//background:#87E6CF; /*to see borders of div*/
+	background:#87E6CF; /*to see borders of div*/
 	display:block;
 	height:100px;
 	width:200px;
 } 
-
+.col2 {
+	background:#1EF922;
+}
+.col3 {
+	background:#1EF9F6;
+}
 .timest {
     float: right;
     font-size: .6em;
@@ -163,13 +183,21 @@ H1 { color: green; }
 .col2 { width:100%; border:0px solid green;}
 .col3 { width:100%; border:0px solid yellow;}
 
+@media all and (min-width: 36em){
+	.boost-div {
+		margin:auto;
+		width:36em;
+		height:150px;	
+	}
+}
+
 /* First breakpoint at 576px */
 /* Inherits mobile styles, but floats containers to make columns */
-@media all and (min-width: 36em){
+@media all and (min-width: 42em){
 		.main { float: left; width:30%; }
-		.col1 { float: left; width:48%; }
-		.col2 { float: left; width:48%; }	
-		.col3 { float: left; width:48%; }		
+		.col1 { float: left; width:50%; }
+		.col2 { float: left; width:50%; }	
+		.col3 { float: left; width:50%; }		
 	.head-menu {
 	    float:left;
 		background: rgba(0,0,0,.4); 
@@ -177,14 +205,19 @@ H1 { color: green; }
 		position:relative;
 		display:inline;
 	}
+	.boost-div {
+		margin:auto;
+		width:300px;	
+		height:250px;
+	}	
 }
 
 
 /* Second breakpoint at 800px */
 /* Adjusts column proportions, tweaks base H1 */
-@media all and (min-width: 50em){
+@media all and (min-width: 70em){
 	.main { width:30%; }
-	.col1 { float: left; width:33%; }
+	.col1 { float: left; width:34%; }
 	.col2 {float: left; width:33%; }
 	.col3 {width:33%; }	
 	/* You can also tweak any other styles in a breakpoint */

@@ -178,7 +178,17 @@ $('#aroom').live('pageinit', function(event) {
 		$.mobile.changePage($("#dialog-boho"), "pop", true, true);	
 	  	return false;
 	});	
-});//end of pageinit????
+	//-------------prog section------------------
+	$(".button-prog").click(function() {
+		/*delete records from holds for this room or all rooms, send current room id */
+		progM = "Release boosts and holds  for this room or all rooms";
+		$('.progM').html(progM);
+		progCkt=$('.head-rm-name').data("rmid");	
+		$.mobile.changePage($("#dialog-prog"), "pop", true, true);
+	});	
+});//end of aroom pageinit
+
+
 
 $('#dialog-release').live('pageinit', function(event) {
 	$(".release-this").click(function() {
@@ -199,6 +209,18 @@ $('#dialog-release').live('pageinit', function(event) {
   			alert("Data Loaded: " + data);
 		});		
 		$.mobile.changePage($("#aroom"));		
+	  	return false;
+	});	
+});//end of pageinit????
+
+$('#dialog-prog').live('pageinit', function(event) {
+	$(".prog-this").click(function() {
+		progtest();
+		$.mobile.changePage($("#aroom"));
+	  	return false;
+	});
+	$(".prog-all").click(function() {	
+		$.mobile.changePage($("#aroom"));	
 	  	return false;
 	});	
 });//end of pageinit????
@@ -414,31 +436,33 @@ time: "1363038504"
 
 */
 
-/* old boost-yes
-		console.log("clicked boost-yes");		
-		sched= new Object();
-		ts=new Object();
-		ts.time = "9:30";
-		ts.setpt = "147";
-		day = new Array();
-		day[0]=ts;
-		day[6] =ts;
-		ckt= new Array();
-		ckt[0] =day; 
-		ckt[11] =day; 
-		sched.feed= "80302";
-		sched.ckts= ckt;
-		console.log(day);
-		console.log(ckt);
-		console.log(sched);
-		console.log(sched.ckts[11]);
-		console.log(sched.ckts[11][0].time);
+function progtest(){
+	console.log("in progtest");		
+	sched= new Object();
+	ts=new Object();
+	ts.time = "10:30";
+	ts.setpt = "157";
+	day = new Array();
+	day[0]=ts;
+	day[6] =ts;
+	ckt= new Array();
+	ckt[0] =day; 
+	ckt[11] =day; 
+	sched.feed= "80302";
+	sched.name = "current";
+	sched.ckts= ckt;
+	console.log(day);
+	console.log(ckt);
+	console.log(sched);
+	console.log(sched.ckts[11]);
+	console.log(sched.ckts[11][0].time);
 //{"feed":"80302","ckts":[[{"time":"9:30","setpt":"147"},null,null,null,null,null,{"time":"9:30","setpt":"147"}],null,null,null,null,null,null,null,null,null,null,[{"time":"9:30","setpt":"147"},null,null,null,null,null,{"time":"9:30","setpt":"147"}]]}
-		schedJ =JSON.stringify(sched);
-		console.log(schedJ);
-		console.log(ckt.length);
-		console.log(sched.ckts[11]==null);
-		console.log(sched.ckts[11][7]==null);
-		$.post("../services/newProg.php", {data: schedJ}).done(function(data){
-  			alert("Data Loaded: " + data);		
-		}); */ 	
+	schedJ =JSON.stringify(sched);
+	console.log(schedJ);
+	console.log(ckt.length);
+	console.log(sched.ckts[11]==null);
+	console.log(sched.ckts[11][7]==null);
+	$.post("../services/newProg.php", {data: schedJ}).done(function(data){
+			alert("Data Loaded: " + data);		
+	});
+}	
