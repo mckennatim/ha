@@ -273,29 +273,43 @@ $('#aroom').live('pageinit', function(event) {
 	        daysi[0]=1; daysi[6]=1;
         }
         console.log(daysi);		
-	});	
+	});
+	/*	
 	$(".prog-tes li").click(function() {
 		time=$(':nth-child(2)', $(this)).html();
 		temp=($(':nth-child(3)', $(this)).html()).substring(0,2);
 		alert(temp+"clicked it "+time);
 	});	
+	*/
 	$("#tite-add").click(function() {
 		too=new Object();
-		too['time']=$('#prog-t').val(); //"7:30";
-		too['temp']=$('#prog-te').val(); 
+		var timel=$('#prog-t').val(); //"7:30";		
+		var time = time2PM(timel);
+		var templ = $('#prog-te').val();
+		too['time']=timel;
+		too['temp']=templ; 
 		tempA.push(too);
+		console.log(time);
 		len=tempA.length-1;
-		newTite ='	<li><a href="#" data-ti="'+len+'" ><img src="img/icons/pencil.png" title="edit" height="20px" width="20px"/></a><span>'+too['time']+' </span><span>'+too['temp']+' &deg;</span></li>';
+		newTiteId='tite'+len;
+		newTite ='	<li  id="'+newTiteId+'" data-ti="'+len+'" data-timl="'+timel+'" data-temp="'+templ+'"><a href="#" ><img src="img/icons/pencil.png" title="edit" height="20px" width="20px"/></a><span>'+time+' </span><span>'+templ+' &deg;</span></li>';
+		console.log(newTite + newTiteId);
+		newTiteSel='.prog-tes ul li';
 		$('.prog-tes ul').append(newTite);
-		console.log(newTite);
+		onClickTite($(newTiteSel));
+		console.log(tempA);
 	});
 	$("#tite-clear").click(function() {
-		tempA.length =0;
-		$('.prog-tes ul').empty();
+		clearTempA();
+		clearDay();
 		console.log(tempA);
-	});					
-
-});//end of aroom pageinit	
+	});	
+	
+	$("#tite-sort").click(function() {
+		sortDay();
+		console.log(tempA);
+	});		
+});//end of aroom pageinit AAAAAAAAAAAAROOOOOMs	
 
 $('#dialog-release').live('pageinit', function(event) {
 	$(".release-this").click(function() {
@@ -526,8 +540,73 @@ function prev(hid){
 		getData();
 	}else{hid++;} 
 	console.log(hid);	
-	return hid;
-	
+	return hid;	
+}
+function time2PM(str){
+	var hr =parseInt(str.substring(0,2));
+	var min =str.substring(2,5);
+	var hre= " AM";
+	if (hr>12){
+		hr = hr-12;
+		hre = " PM";
+	} else if(hr==12){
+		hre = " PM";
+	}
+	if (hr==0) hr=12;
+	if (hr<10) {hr="&nbsp;&nbsp;"+hr+"";}
+	var ampm = hr+min+hre;
+	console.log(str+hr+min+hre+ ampm);
+	return ampm;
+}
+
+function sortDay(){
+	tempA.sort(function(a, b){
+		var timeA=parseInt(a.time.substring(0,2)), timeB=parseInt(b.time.substring(0,2))
+		return timeA-timeB //sort by date ascending
+	});
+	clearDay();
+	dispTimes(tempA);
+}
+function clearTempA(){
+	tempA.length =0;	
+}
+function clearDay(){
+	$('.prog-tes ul').empty();
+}
+function dispDay(idx){
+	var temp = tempA[idx]['temp'];
+	var timel = tempA[idx]['time'];
+	var timep = time2PM(timel);
+	newTiteId='tite'+len;
+	newTite ='	<li  id="'+newTiteId+'" data-ti="'+len+'" data-timl="'+timel+'" data-temp="'+temp+'"><a href="#" ><img src="img/icons/pencil.png" title="edit" height="20px" width="20px"/></a><span>'+timep+' </span><span>'+temp+' &deg;</span></li>';
+	console.log(newTite + newTiteId);
+	newTiteSel='.prog-tes ul li';
+	$('.prog-tes ul').append(newTite);
+	onClickTite($(newTiteSel));
+	console.log(tempA);	
+}
+
+function dispTimes(tempA){
+	for (i=0;i<tempA.length;i++){
+		dispDay(i);
+	}
+}
+
+function onClickTite(sel){
+	sel.unbind('click');//sel = $(".prog-tes li")
+	sel.bind('click', function(){
+		//time=$(':nth-child(2)', $(this)).html();
+		//temp=($(':nth-child(3)', $(this)).html()).substring(0,2);
+		ddd=$(this)[0];
+		var ti = ddd.dataset.ti
+		var timl=ddd.dataset.timl;
+		var templ=ddd.dataset.temp;
+		$('#prog-t').val(timl);
+		$('#prog-te').val(templ);
+		$(this).empty();
+		tempA.splice(ti,1);
+		console.log(templ+" clicked it "+timl);		
+	});
 }
 
 /*

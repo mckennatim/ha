@@ -149,14 +149,7 @@
 	display:block;	
 	float:right;
 }
-.prog-time{
-	margin:auto;
-	width:290px;
-	background:#6CF77C;
-	display:block;	
-	height:360px;
-	border: 1px solid black;
-}
+
 .prog-day{
 	background:#41F17C;
 	display:block;	
@@ -173,6 +166,14 @@
 .prog-day ul{
 	margin:2px;
 	padding:17px 0 17px 3px;
+}
+.prog-time{
+	margin:auto;
+	width:290px;
+	background:#6CF77C;
+	display:block;	
+	height:280px;
+	border: 1px solid black;
 }
 .prog-time-box ul{
 	margin:2px;
