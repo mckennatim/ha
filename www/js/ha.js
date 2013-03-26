@@ -22,9 +22,13 @@ var bohoA = new Object();
 var bohoS ="doogypoo";
 var bohoM="nothing to say";
 var releaseCkt;
+var anc =""; 
+var progToggle=0;
 
-day = ["Sun", "Mon", "Tues", "Wed", "Thu", "Fri", "Sat" ];
-sday = ["Su", "M", "T", "W", "Th", "F", "S" ];
+var days = ["Sun", "Mon", "Tues", "Wed", "Thu", "Fri", "Sat" ];
+var sday = ["Su", "M", "T", "W", "Th", "F", "S" ];
+var daysi = [0,0,0,0,0,0,0];
+var tempA =new Array();
 
 $('#main-page').live('pageinit', function(event) {
 	console.log('in live pageinit for main-page');
@@ -184,11 +188,114 @@ $('#aroom').live('pageinit', function(event) {
 		progM = "Release boosts and holds  for this room or all rooms";
 		$('.progM').html(progM);
 		progCkt=$('.head-rm-name').data("rmid");	
+		//$('html, body').animate({
+         	//scrollTop: $(".prog-div").offset().top
+     	//}, 200);
 		$.mobile.changePage($("#dialog-prog"), "pop", true, true);
 	});	
-});//end of aroom pageinit
+	$(".prog-day a.d").click(function() {
+		console.log("clicked a day button");
+		var ddd;
+		var dow;
+	    var daySelected = $(this).data("daySelected");
+	    if ( daySelected == "1"  ) {
+	        $(this).data("daySelected","0");
+	        $(this).removeClass('sel');
+	        ddd=$(this)[0];//same as getElementById
+	        console.log($(this).data("daySelected"));
+	        dow = ddd.dataset.dow;
+	        console.log(dow);
+	        daysi[dow]=0;
+	     }else {
+	        $(this).data("daySelected","1");
+	        $(this).addClass('sel');
+	        ddd=$(this)[0];//same as getElementById
+	        console.log($(this).data("daySelected"));
+	        dow = ddd.dataset.dow;
+	        console.log(dow);
+	        daysi[dow]=1;
+	    }
+	    console.log(daysi);			
+	});
+	$(".prog-day a.d-button").click(function() {
+		console.log("clicked a everyday button");
+		var ddd;
+	    var daySelected = $(this).data("daySelected");
+		if ( daySelected === "1"  ) {	    
+	        $(this).data("daySelected","0");
+	        $(".prog-day a.d").data("daySelected","0");
+	        $(".prog-day a.d").removeClass('sel');
+	        console.log($(this).data("daySelected"));
+	        daysi = [0,0,0,0,0,0,0];
+	    }else {
+	    	$(this).data("daySelected","1");
+	    	$(".prog-day a.d").data("daySelected","1");
+	        $(".prog-day a.d").addClass('sel');
+	        console.log($(this).data("daySelected"));
+	        daysi = [1,1,1,1,1,1,1];
+        }
+        console.log(daysi);
+	});	
+	$(".prog-day a.wd-button").click(function() {
+		console.log("clicked a weekday button");
+		var ddd;
+	    var daySelected = $(this).data("daySelected");
+		if ( daySelected === "1"  ) {	    
+	        $(this).data("daySelected","0");
+	        $(".prog-day a.wd").data("daySelected","0");
+	        $(".prog-day a.wd").removeClass('sel');
+	        console.log($(this).data("daySelected"));
+	        for (i=1;i<6;i++){daysi[i]=0;}
+	    }else {
+	    	$(this).data("daySelected","1");
+	    	$(".prog-day a.wd").data("daySelected","1");
+	        $(".prog-day a.wd").addClass('sel');
+	        console.log($(this).data("daySelected"));
+	        for (i=1;i<6;i++){daysi[i]=1;}
+        }
+        console.log(daysi);		
+	});
+	$(".prog-day a.we-button").click(function() {
+		console.log("clicked a weekend button");
+		var ddd;
+	    var daySelected = $(this).data("daySelected");
+		if ( daySelected === "1"  ) {	    
+	        $(this).data("daySelected","0");
+	        $(".prog-day a.we").data("daySelected","0");
+	        $(".prog-day a.we").removeClass('sel');
+	        console.log($(this).data("daySelected"));
+	        daysi[0]=0; daysi[6]=0;
+	    }else {
+	    	$(this).data("daySelected","1");
+	    	$(".prog-day a.we").data("daySelected","1");
+	        $(".prog-day a.we").addClass('sel');
+	        console.log($(this).data("daySelected"));
+	        daysi[0]=1; daysi[6]=1;
+        }
+        console.log(daysi);		
+	});	
+	$(".prog-tes li").click(function() {
+		time=$(':nth-child(2)', $(this)).html();
+		temp=($(':nth-child(3)', $(this)).html()).substring(0,2);
+		alert(temp+"clicked it "+time);
+	});	
+	$("#tite-add").click(function() {
+		too=new Object();
+		too['time']=$('#prog-t').val(); //"7:30";
+		too['temp']=$('#prog-te').val(); 
+		tempA.push(too);
+		len=tempA.length-1;
+		newTite ='	<li><a href="#" data-ti="'+len+'" ><img src="img/icons/pencil.png" title="edit" height="20px" width="20px"/></a><span>'+too['time']+' </span><span>'+too['temp']+' &deg;</span></li>';
+		$('.prog-tes ul').append(newTite);
+		console.log(newTite);
+	});
+	$("#tite-clear").click(function() {
+		tempA.length =0;
+		$('.prog-tes ul').empty();
+		console.log(tempA);
+	});					
 
-
+});//end of aroom pageinit	
 
 $('#dialog-release').live('pageinit', function(event) {
 	$(".release-this").click(function() {
@@ -220,17 +327,17 @@ $('#dialog-prog').live('pageinit', function(event) {
 	  	return false;
 	});
 	$(".prog-all").click(function() {	
+		anc = $('a#prog-all').attr('anchor');
+		console.log(anc);
 		$.mobile.changePage($("#aroom"));	
 	  	return false;
 	});	
-});//end of pageinit????
+
+});//end of dialog-prog pageinit????
 	
 $('.test-buttons').live('pageinit', function(event) {	
 	$(".hold-yes").click(function() {	
 		console.log("clicked hold-yes");		
-		//holdS='{"feed":"80302","ckt":99,"start":1363707975,"finish":1364000000,"setpt":133}';
-		//holdArr = JSON.parse(holdS);
-		//holdStr =JSON.stringify(holdArr);
 		holdStr=bohoS;
 		console.log(holdStr);
 		$.post("../services/hold.php", {data: holdStr}).done(function(data){
@@ -241,13 +348,6 @@ $('.test-buttons').live('pageinit', function(event) {
 	});
 	$(".hold-all-yes").click(function() {	
 		console.log("clicked hold-all-yes");		
-		//holdS='{"feed":"80302","ckt":99,"start":1363707975,"finish":1364000000,"setpt":133}';
-		//holdArr = JSON.parse(holdS);
-		//holdStr =JSON.stringify(holdArr);
-		//for (i=0;i<MAXCKTS;i++){
-			//boho[i]=s2f(bohoA.setpt);
-		//}
-		//.log(boho);
 		bohoA.ckt=99;
 		console.log(bohoA);
 		bohoS= JSON.stringify(bohoA);
@@ -260,6 +360,19 @@ $('.test-buttons').live('pageinit', function(event) {
 	  	return false;
 	});				
 });//end of pageinit????
+
+$(document).on('pageshow', '#aroom', function (e) {
+	console.log("in pageshow");
+	target=$('#button-prog').get(0).offsetTop;
+	console.log(target);
+    //var target = $(localStorage.anchor).get(0);
+    if(anc.length>0){
+	 	$('html, body').animate({
+	     	scrollTop: $(anc).offset().top-95
+	 	}, 1000);  
+	 	anc=""; 	
+    }
+});
 	
 function initMainPage(){
 	$.each(rooms, function(index, room) {

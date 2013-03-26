@@ -114,7 +114,7 @@
 				<div class="boost-div">
 					<h4>BOOST temperature temporarily</h4>
 					<div class="boost-inputs">
-						<label for="time-boost">@<a id="clock">
+						<label for="time-boost">now or @ <a id="clock">
 							<img src="http://homecontrol.sitebuilt.net/www/img/icons/clock34.png" title="click clock to set start time" />	
 						</a></label>
 				    	<input type="time" data-clear-btn="true" name="time-boost" id="time-boost">
@@ -139,55 +139,130 @@
 			<div class="col1b">
 				<div class="set-div">
 					<h4>Change SET Point, Hold or Release </h4>
-				    <div class="button-big">
-						<a class="button-setpt" href="#" data-rel="dialog">
-							<img src="http://homecontrol.sitebuilt.net/www/img/icons/setpt80.png" />
-							<span >71&deg;</span>				
-						</a>
-					</div><!--button-big-->			
 					<div class="set-buttons">
-						<p>
-						    <a class="release" href="#" data-role="button" data-inline="true" data-mini="true">Release</a>
-						</p>    </br>
-						    <p>until  &darr;<a id="datetime34">
-						    	<img src="http://homecontrol.sitebuilt.net/www/img/icons/datetime34-64.png" title="set until..."/>
-					    	</a></p>	
-					</div><!--set-buttons-->
-					<div class="set-inputs">
-				    	<input type="datetime-local" data-clear-btn="false" name="datetime-set-til" id="datetime-set-til" >
+					    <div class="button-big">
+							<a class="button-setpt" href="#" data-rel="dialog">
+								<img src="http://homecontrol.sitebuilt.net/www/img/icons/setpt80.png" />
+								<span >71&deg;</span>				
+							</a>
+						</div><!--button-big-->			
+						<div class="set-release">
+							<p>
+							    <a class="release" href="#" data-role="button" data-inline="true" data-mini="true">Release</a>
+							</p>    </br>	
+						</div><!--set-release-->
+					</div><!--set-buttons-->	
+					 <div class="set-datetime">
+						<p>until  &darr;<a id="datetime34">
+					    	<img src="http://homecontrol.sitebuilt.net/www/img/icons/datetime34-64.png" title="set until..."/>
+				    	</a></p><br/><br/>
+			    		<input type="datetime-local" data-clear-btn="false" name="datetime-set-til" id="datetime-set-til" >
+			    	</div><!--set-datetime-->
+			    	<div class="set-setpt">
 						<label for="slider-setpt">Adjust Set point to:</label>
 						<input type="range" name="slider-setpt" id="slider-setpt"  min="55" max="80" value="64"/>
-					</div><!--set-inputs-->
+					</div><!--set-datetimed-->	
 				</div><!--set-div-->	
 			</div><!--col1b-->
 			<div class="col1c">
-				<div class="prog-div">
-					<h4>Program </h4>
-				    <div class="button-big">
-						<a class="button-prog" href="#" data-rel="dialog">
-							<img src="http://homecontrol.sitebuilt.net/www/img/icons/setpt80.png" />
-							<span >71&deg;</span>				
-						</a>
-					</div><!--button-big-->			
-					<div class="prog-buttons">
-						<p>
-						    <a class="prog-b1" href="#" data-role="button" data-inline="true" data-mini="true">Release</a>
-						</p>    </br>
-						    <p>until  &darr;<a id="prog-datetime-img">
-						    	<img src="http://homecontrol.sitebuilt.net/www/img/icons/datetime34-64.png" title="set until..."/>
-					    	</a></p>	
-					</div><!--set-buttons-->
-					<div class="prog-inputs">
-				    	<input type="datetime-local" data-clear-btn="false" name="prog-datetime" id="prog-datetime" >
-						<label for="slider-prog">Adjust Set point to:</label>
-						<input type="range" name="slider-prog" id="slider-prog"  min="55" max="80" value="64"/>
-					</div><!--prog-inputs-->
-				</div><!--prog-div-->	
+
 			</div><!--col1c-->			
 		</div><!--col1-->		
 		<div class="col2">
-		<label for="slider-2">social darwinismr:</label>
-		<input type="range" name="slider-2" id="slider-2" value="60" min="0" max="100" />
+			<div class="prog-div">	
+				<h4>Program </h4>
+				<div class="prog-load">
+				</div><!--prog-load-->	
+				<div class="prog-day">
+					<div class="day2">
+					<ul >
+					    <li><a href="#" class="d-button left" >Everyday</a></li>
+					    <li><a href="#" class="wd-button" >Weekday</a></li>
+					    <li><a href="#" class="we-button right">Weekend</a></li>				    
+					</ul>						
+					<ul >
+					    <li><a href="#" data-dow="1" class="d wd left">M</a></li>
+					    <li><a href="#" data-dow="2" class="d wd" >T</a></li>
+					    <li><a href="#"  data-dow="3" class="d wd" >W</a></li>
+					    <li><a href="#"  data-dow="4" class="d wd" >Th</a></li>
+					    <li><a href="#"  data-dow="5" class="d wd" >F</a></li>
+					    <li><a href="#"  data-dow="6" class="d we" >Sa</a></li>
+					    <li><a href="#"  data-dow="0" class="d we right" >Su</a></li>				    
+					</ul>	
+					</div><!--day2-->				
+				</div><!--prog-day-->
+				<div class="prog-time">
+					<div class="prog-time-box">
+						<ul >
+						    <li><a id="tite-add" href="#" class="pt left" >Add</a></li>
+						    <li><a href="#" class="pt" >Replace</a></li>
+						    <li><a href="#" class="pt">Delete</a></li>		
+						    <li><a id="tite-clear" href="#" class="pt right">Clear</a></li>		    
+						</ul>
+						<div class="prog-t">
+							<label for="prog-t">time</label>
+					    	<input type="time" name="prog-t" id="prog-t">
+					    </div>	
+					    <div class="prog-te">
+					    	<label for="prog-te">temperature</label>
+					    	<input type="range" name="prog-te" id="prog-te"  min="55" max="80" value="64" data-inline="true" data-mini="true" /> 
+						</div><!--prog-te-->	
+						<div class="prog-tes" >
+							<ul >
+							    <li>	
+							    	<a href="#" data-ti="1" >
+							    		<img src="img/icons/pencil.png" title="edit" height="20px" width="20px"/>
+						    		</a>
+							    	<span>7:30AM </span><span>67&deg;</span>
+						    	</li>
+							    <li>	
+							    	<a href="#" data-ti="1" >
+							    		<img src="img/icons/pencil.png" title="edit" height="20px" width="20px"/>
+						    		</a>
+							    	<span>7:30AM </span><span>67&deg;</span>
+						    	</li>
+							    <li>	
+							    	<a href="#" data-ti="1" >
+							    		<img src="img/icons/pencil.png" title="edit" height="20px" width="20px"/>
+						    		</a>
+							    	<span>7:30AM </span><span>67&deg;</span>
+						    	</li>
+							    <li>	
+							    	<a href="#" data-ti="1" >
+							    		<img src="img/icons/pencil.png" title="edit" height="20px" width="20px"/>
+						    		</a>
+							    	<span>7:30AM </span><span>67&deg;</span>
+						    	</li>						    							    	
+							</ul>					
+						</div>	
+					</div><!--prog-time-box-->				
+				</div><!--prog-time-->
+				<div class="prog-copy">
+				</div><!--prog-copy-->	
+				<div class="prog-save">
+				</div><!--prog-save-->															
+			    <div class="button-big">
+					<a id="button-prog" class="button-prog" href="#" data-rel="dialog">
+						<img src="http://homecontrol.sitebuilt.net/www/img/icons/setpt80.png" />
+						<span >71&deg;</span>				
+					</a>
+				</div><!--button-big-->			
+				<div class="prog-buttons">
+					<p>
+					    <a class="prog-b1" href="#" data-role="button" data-inline="true" data-mini="true">Release</a>
+					</p>    </br>
+					    <p>until  &darr;<a id="prog-datetime-img">
+					    	<img src="http://homecontrol.sitebuilt.net/www/img/icons/datetime34-64.png" title="set until..."/>
+				    	</a></p>	
+				</div><!--set-buttons-->
+				<div class="prog-inputs">
+			    	<input type="datetime-local" data-clear-btn="false" name="prog-datetime" id="prog-datetime" >
+					<label for="slider-prog">Adjust Set point to:</label>
+					<input type="range" name="slider-prog" id="slider-prog"  min="55" max="80" value="64"/>
+				</div><!--prog-inputs-->
+			</div><!--prog-div-->				
+			<label for="slider-2">social darwinismr:</label>
+			<input type="range" name="slider-2" id="slider-2" value="60" min="0" max="100" />
 			<p>Foreign Policy
 social Darwinism
 strongest or fittest should survive and flourish in society, while the weak and unfit should be allowed to die. This theory was used to promote the idea that the white European race was superior to others, and therefore, destined to rule over them.
@@ -219,7 +294,7 @@ A policy of extending a country's power and influence through diplomacy or milit
 		<div id="about">
 		<p class= "progM"></p>
 		<a class="prog-this" href="#" data-role="button" data-inline="true" data-mini="true" >just this room </a>
-		<a class="prog-all" href="#" data-role="button" data-inline="true" data-mini="true" > all rooms </a>
+		<a id="prog-all" anchor="#button-prog" class="prog-all" href="#" data-role="button" data-inline="true" data-mini="true" > all rooms </a>
 		</div>
 		</div> 
 	</div><!-- /content -->

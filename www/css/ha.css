@@ -1,4 +1,4 @@
-
+/*top right bottom left*/
 #page-room{
 	background:#12F2E9;
 }
@@ -75,10 +75,10 @@
 	background:#EACF00; /*to see borders of div*/
 	display:block;
 	height:108px;
-	width:180px;
+	width:160px;
 } 
 .boost-button{
-	float:right;
+	//float:right;
 	background:green;
 }
 .boost-hrs {
@@ -88,41 +88,173 @@
 	background:#D5C200; /*to see borders of div*/
 	display:block;
 	height:104px;
-	width:240px;
+	width:220px;
 } 
 .col1b{
 	background:#B1E9CF;
 }
 .set-div {
-	/*background:#B1E9CF;*/
+	margin:auto;
+	width:270px;
+	background:#C1E7E9;
 	color:blue;	
 	display:block;
-	width:320px;
-	height:280px;
+	//width:320px;
+	height:312px;
 	//float:left;
-	border:6px 6px 6px 6px;
-	padding: 0px 0 0 6px;
+	border:0px 0px 6px 0px;
+	padding: 16px 0 0 0px;
 }
-.set-inputs {
-	margin-top:0px;
-	padding:0 20px 0 20px;
-	float:left;
-	background:#87E6CF; /*to see borders of div*/
-	display:block;
-	height:160px;
-	width:270px;
-} 
 .set-buttons {
 	margin-top:0px;
-	padding:13px 0px 0 10px;
+	padding:13px 0px 0 0px;
 	float:left;
 	background:#87E6CF; /*to see borders of div*/
 	display:block;
 	height:100px;
 	width:200px;
 } 
+.set-datetime p{
+	float:right;
+}
+.set-datetime{
+	display:block;
+	float:left;
+	width:230px;
+	background:#3A5BB4;
+}
+
+.set-setpt{
+	display:block;
+	float:left;
+	width:230px;
+	background:#7FBD93;
+}
 .col2 {
 	background:#1EF922;
+}
+.prog-div{
+	margin:auto;
+	width:308px;
+	background:#1EF922;
+	display:block;	
+}
+.prog-load{
+	background:#1EF922;
+	display:block;	
+	height:20px;
+}
+.prog-clear{
+	background:#41F17C;
+	display:block;	
+	float:right;
+}
+.prog-time{
+	margin:auto;
+	width:290px;
+	background:#6CF77C;
+	display:block;	
+	height:360px;
+	border: 1px solid black;
+}
+.prog-day{
+	background:#41F17C;
+	display:block;	
+	height:100px;
+}
+.prog-day div.day2, .prog-time div.prog-time-box {
+	border-radius: 15px;
+	border:0px;
+	padding:0px;
+	margin:0px;
+	list-style: none;
+	float: left;	
+}
+.prog-day ul{
+	margin:2px;
+	padding:17px 0 17px 3px;
+}
+.prog-time-box ul{
+	margin:2px;
+	padding:7px 0 17px 3px;
+}
+.prog-day div.day2 li, .prog-time div.prog-time-box li{
+	//display:inline;
+	float:left;
+	padding:0px;
+	margin:0px;
+	border:0px;
+}
+.prog-day div.day2 a, .prog-time div.prog-time-box a{
+	margin:0px;
+	text-decoration: none;
+	color:white;
+	text-shadow:1px 1px #FF0000;
+	font-size: .9em;
+	border: 1px solid black;
+	border-left: none;
+	display: block;
+	padding: 7px 15px 7px 12px;
+	background: #5791BC ;
+}
+.prog-day div.day2 a.sel{
+	color:black;
+	background: #B1E9CF;
+}
+.right{
+	border-radius:0 5px 5px 0;
+}
+.prog-day div.day2 a.left, .prog-time a.left{
+	border-radius:5px 0 0 5px;
+	border-left:1px solid black;
+}
+.prog-copy{
+	background:#1EF922;
+	display:block;	
+}
+.prog-save{
+	background:#1EF922;
+	display:block;	
+}
+.prog-t{
+	float:left;
+	height:90px;
+	background:#D4F4FF;
+	width:108px;
+}
+.prog-te{
+	float:left;
+	height:90px;
+	background:#D4F4FF;
+	width:180px;
+}
+div.prog-time {
+	display:block;
+}
+div.prog-time div.prog-time-box {
+	display:block;
+}
+div.prog-time div.prog-time-box div.prog-tes {
+	display:block;
+}
+div.prog-time div.prog-time-box div.prog-tes ul{
+	display:block;
+}
+div.prog-time div.prog-time-box div.prog-tes li{
+	margin:auto;
+	border: 1px solid blue;
+	display:inline;
+	background: #D4F4FF;
+	padding:5px;
+}
+div.prog-time div.prog-time-box div.prog-tes a{
+	border:0;
+	padding:0px 0 4px 0;
+	display:inline;
+	background: white;	
+}
+div.prog-time div.prog-time-box div.prog-tes span{
+	padding: 5px 40px 4px 40px;
 }
 .col3 {
 	background:#1EF9F6;
@@ -158,12 +290,12 @@ H1 { color: green; }
 .orange{background: rgba(153,0,10,.75);}
 .blue{background: rgba(50, 99,187,.75);}
 .black{background: rgba(0,0,0,.75);}
-.head-rm header {height:100px;}
 
+.head-rm header {height:70px;}
 .head-img {float:left;}
-.head-img img {width:150px; height:100px;}
+.head-img img {width:110px; height:70px;}
 .head-txt {float:left; width:120px; margin:4px; font-family:"Arial Black", Gadget, sans-serif;}
-.head-temp {height:75px;font-size:3em; float:right; margin:4px;}
+.head-temp {height:55px;font-size:2.5em; float:right; margin:4px;}
 .head-rm-name {float:right;}
 .head-menu {
 	float:left; 
@@ -189,6 +321,11 @@ H1 { color: green; }
 		width:36em;
 		height:150px;	
 	}
+	.set-div {
+		margin:auto;
+		width:28em;
+		height:200px;	
+	}	
 }
 
 /* First breakpoint at 576px */
@@ -209,7 +346,12 @@ H1 { color: green; }
 		margin:auto;
 		width:300px;	
 		height:250px;
-	}	
+	}
+	.set-div {
+		margin:auto;
+		width:270px;	
+		height:312px;
+	}		
 }
 
 
