@@ -1,7 +1,12 @@
-back to [[electronics]]
 ===[[online heating system control project]]===
 http://[[homecontrol]].sitebuilt.net jquery-mobile app
 
+====version H: titeObj -time temp array: display, sort, clear, edit  ====
+TODO:create a datObj.
+
+All the functions and data are encapsulated. A coulple of 'this' problems were solved by replacing this. with titeObj.
+
+My kind of oops: http://www.javascriptkit.com/javatutors/oopjs.shtml
 
 ====version G: tempA -time temp array: display, sort, clear, edit  ====
 (TODO: flesh out the program data structure) OK now I know at least about the tempA array
