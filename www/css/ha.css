@@ -295,7 +295,7 @@ H1 { color: green; }
 .head-rm header {height:70px;}
 .head-img {float:left;}
 .head-img img {width:110px; height:70px;}
-.head-txt {float:left; width:120px; margin:4px; font-family:"Arial Black", Gadget, sans-serif;}
+.head-txt {float:left; width:100px; margin:4px; font-family:"Arial Black", Gadget, sans-serif;}
 .head-temp {height:55px;font-size:2.5em; float:right; margin:4px;}
 .head-rm-name {float:right;}
 .head-menu {

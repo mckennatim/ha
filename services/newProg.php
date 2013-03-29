@@ -7,7 +7,7 @@ $progDec = json_decode($progAll);
 ChromePhp::log($progAll . "\n");
 ChromePhp::log($progDec->name);
 ChromePhp::log($progDec->feed);
-$ch = curl_init('198.23.156.78/hsc/prog/'.$progDec->feed.'/'.$progDec->name.);                                                                        
+$ch = curl_init('198.23.156.78/hsc/prog/'.$progDec->feed.'/'.$progDec->name);                                                                        
 curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");                                                           
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true); 
 curl_setopt($ch, CURLOPT_HTTPHEADER, array( 

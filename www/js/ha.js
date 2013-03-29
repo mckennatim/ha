@@ -1,77 +1,54 @@
 console.log("line1 of ha.js");
-var b64img;
-var feed = "80302";
-var rooms;
-var numrooms;
-var b64 = new Object();
 var green ="rgba(38,162,43,.75)";
 var orange= "rgba(153,0,10,.75)";
 var blue= "rgba(50, 99,187,.75)";
 var black= "rgba(0,0,0,.75)";
-var hid = 0; //aroom header data roomid
-var therooms = new Object();
 /*intialize app -- if not already in local storage*/
 var params =new Object();
-var MAXCKTS = 12;
-params['MAXCKTS']=MAXCKTS;
+params['MAXCKTS']=12;
 params['boostSetpt']=74;
 params['holdForDays']=30;
-
-//var bohoA = new Array();
 var bohoA = new Object();
 var bohoS ="doogypoo";
 var bohoM="nothing to say";
-var releaseCkt;
 var anc =""; 
-var progToggle=0;
-
 var days = ["Sun", "Mon", "Tues", "Wed", "Thu", "Fri", "Sat" ];
 var sday = ["Su", "M", "T", "W", "Th", "F", "S" ];
 var daysi = [0,0,0,0,0,0,0];
 
 $('#main-page').live('pageinit', function(event) {
 	console.log('in live pageinit for main-page');
-	//console.log(b64.livingroom);
-	//getParams();
-	getRoomList();
- 	getRoomImages();
-	initMainPage();
-	getData();
-	
+	sys.load();
+	sys.initMain();
 	$('.temp-refresh').click(function() {
 		console.log('just clicked temp-refresh button');
-		getData();
+		sys.refreshState();
 		$('#popupMenu').popup("close");
 	});	
 	$('.reload').click(function() {
-		console.log('just clicked temp-refresh button');
+		console.log('just clicked temp-reload button');
 		$('#rooms').html('');
-		initMainPage();
-		getData();
+		sys.initMain();
+		sys.refreshState();	
 		$('#popupMenu').popup("close");
 	});	
 	$('.reset-app').click(function() {
-		console.log('just clicked temp-refresh button');
+		console.log('just clicked temp-reset button');
 		localStorage.clear();
-		getRoomList();
-		getRoomImages();
+		sys.load();	
 		$('#rooms').html('');
-		initMainPage();
-		getData();
+		sys.initMain();
+		ssys.refreshState();	
 		$('#popupMenu').popup("close");
 	});		
 	$('.room-li').click(function() {
-		rsid= jQuery(this).attr("id");
-		rid = rsid.substring(2);
-		initAroom(rid);
-		console.log(rid);
+		zone.load(jQuery(this).attr("id").substring(2));
+		zone.goto();		
 	});
 });//end of pageinit????
 
 $('#aroom').live('pageinit', function(event) {
-	getRoomList();
-	getRoomImages();	
-	getData();
+	sys.load();
 	console.log('in live pageinit for aroom');
 	$(".arm-goup").click(function() {
 		console.log("clicked top-rm");
@@ -79,20 +56,31 @@ $('#aroom').live('pageinit', function(event) {
 	  return false;
 	});
 	$(".arm-prev").click(function() {
-		//getData();
-		hid=$('.head-rm-name').data("rmid");
-		refreshRoom(prev(hid));
+		slidethis($('#aroom'), 200,"left");
+		zone.load(prev($('.head-rm-name').data("rmid")));
+		zone.refresh();
 	  	return false;
 	});
 	$(".arm-next").click(function() {
-		//getData();
-		hid=$('.head-rm-name').data("rmid");		
-		refreshRoom(next(hid));
+		slidethis($('#aroom'), 200,"right");
+		zone.load(next($('.head-rm-name').data("rmid")));
+		zone.refresh();
 	  	return false;
 	});	
+	$('#aroom').on('swipeleft',function(event){
+		slidethis($('#aroom'), 200,"left");
+		zone.load(prev($('.head-rm-name').data("rmid")));
+		zone.refresh();
+	  	return false;		
+	});
+	$('#aroom').on('swiperight',function(event){
+		slidethis($('#aroom'), 200,"right");
+		zone.load(next($('.head-rm-name').data("rmid")));
+		zone.refresh();
+	  	return false;		
+	});
 	$("#slider-setpt").change(function(e){ //on moving slider	
 		var s = $(this).val();
-		console.log(s)
 		$(".button-setpt span").html(s+"&deg;");
 	});	
 	$("#time-boost").hide();
@@ -106,7 +94,6 @@ $('#aroom').live('pageinit', function(event) {
 	  	return false;
 	});	
 	$(".button-setpt").click(function() {
-		console.log("clicked button-boost");	
 		hoSetpt=$("#slider-setpt").val();	
 		bft=$("#datetime-set-til").val();
 		bst=new Date();
@@ -117,25 +104,13 @@ $('#aroom').live('pageinit', function(event) {
 		}
 		bs_time=Date.parse(bst)/1000;
 		bf_time=Date.parse(bft)/1000;
-		console.log(bst);
-		console.log(bft);
-		//console.log(bs_time);
-		//console.log(bf_time);
-		console.log(hoSetpt);
-		ckt=$('.head-rm-name').data("rmid");	
-		//boho[ckt]=hoSetpt;
-		bohoA.feed=feed;
-		bohoA.ckt=ckt;
+		bohoA.feed=sys.feed;
+		bohoA.ckt=zone.idx;
 		bohoA.start= bs_time;
 		bohoA.finish=bf_time;
 		bohoA.setpt=f2a(hoSetpt);
-		console.log(bohoA);
-		//console.log(boho);
 		bohoS= JSON.stringify(bohoA);
-		//bohoS='{"feed":"'+feed+'","ckt":'+ckt+',"start":'+bs_time+',"finish":'+bf_time+',"setpt":'+f2a(hoSetpt)+'}';
-		bohoM ="Hold "+rooms[ckt].rname+" at "+hoSetpt+"&deg;  until "+bft;
-		console.log(bohoS);
-		console.log(bohoM)
+		bohoM ="Hold "+zone.state.rname+" at "+hoSetpt+"&deg;  until "+bft;
 		$('.bohoM').html(bohoM);
 		$('.hold-all-yes').show();
 		$.mobile.changePage($("#dialog-boho"), "pop", true, true);
@@ -144,7 +119,6 @@ $('#aroom').live('pageinit', function(event) {
 		/*delete records from holds for this room or all rooms, send current room id */
 		releaseM = "Release boosts and holds  for this room or all rooms";
 		$('.releaseM').html(releaseM);
-		releaseCkt=$('.head-rm-name').data("rmid");	
 		$.mobile.changePage($("#dialog-release"), "pop", true, true);
 	});
 	$(".button-boost").click(function() {
@@ -163,17 +137,14 @@ $('#aroom').live('pageinit', function(event) {
 		bs_time=Date.parse(d)/1000;
 		bf_time=bs_time+forhrs*60*60;
 		console.log(params['boostSetpt']);
-		ckt=$('.head-rm-name').data("rmid");	
-		//boho[ckt]=params['boostSetpt'];
-		bohoA.feed=feed;
-		bohoA.ckt=ckt;
+		bohoA.feed=sys.feed;
+		bohoA.ckt=zone.idx;
 		bohoA.start= bs_time;
 		bohoA.finish=bf_time;		
 		bohoA.setpt=f2a(params['boostSetpt']);
 		console.log(bohoA);
 		bohoS= JSON.stringify(bohoA);
-		//bohoS='{"feed":"'+feed+'","ckt":'+ckt+',"start":'+bs_time+',"finish":'+bf_time+',"setpt":'+f2a(hoSetpt)+'}';
-		bohoM ="Boost "+rooms[ckt].rname+" to "+params['boostSetpt']+"&deg; "+when+" for "+forhrs+" hour(s)";
+		bohoM ="Boost "+zone.state.rname+" to "+params['boostSetpt']+"&deg; "+when+" for "+forhrs+" hour(s)";
 		console.log(bohoS);
 		console.log(bohoM);
 		$('.bohoM').html(bohoM);
@@ -187,9 +158,6 @@ $('#aroom').live('pageinit', function(event) {
 		progM = "Release boosts and holds  for this room or all rooms";
 		$('.progM').html(progM);
 		progCkt=$('.head-rm-name').data("rmid");	
-		//$('html, body').animate({
-         	//scrollTop: $(".prog-div").offset().top
-     	//}, 200);
 		$.mobile.changePage($("#dialog-prog"), "pop", true, true);
 	});	
 	$(".prog-day a.d").click(function() {
@@ -224,51 +192,41 @@ $('#aroom').live('pageinit', function(event) {
 	        $(this).data("daySelected","0");
 	        $(".prog-day a.d").data("daySelected","0");
 	        $(".prog-day a.d").removeClass('sel');
-	        console.log($(this).data("daySelected"));
 	        daysi = [0,0,0,0,0,0,0];
 	    }else {
 	    	$(this).data("daySelected","1");
 	    	$(".prog-day a.d").data("daySelected","1");
 	        $(".prog-day a.d").addClass('sel');
-	        console.log($(this).data("daySelected"));
 	        daysi = [1,1,1,1,1,1,1];
         }
-        console.log(daysi);
 	});	
 	$(".prog-day a.wd-button").click(function() {
-		console.log("clicked a weekday button");
 		var ddd;
 	    var daySelected = $(this).data("daySelected");
 		if ( daySelected === "1"  ) {	    
 	        $(this).data("daySelected","0");
 	        $(".prog-day a.wd").data("daySelected","0");
 	        $(".prog-day a.wd").removeClass('sel');
-	        console.log($(this).data("daySelected"));
 	        for (i=1;i<6;i++){daysi[i]=0;}
 	    }else {
 	    	$(this).data("daySelected","1");
 	    	$(".prog-day a.wd").data("daySelected","1");
 	        $(".prog-day a.wd").addClass('sel');
-	        console.log($(this).data("daySelected"));
 	        for (i=1;i<6;i++){daysi[i]=1;}
         }
-        console.log(daysi);		
 	});
 	$(".prog-day a.we-button").click(function() {
-		console.log("clicked a weekend button");
 		var ddd;
 	    var daySelected = $(this).data("daySelected");
 		if ( daySelected === "1"  ) {	    
 	        $(this).data("daySelected","0");
 	        $(".prog-day a.we").data("daySelected","0");
 	        $(".prog-day a.we").removeClass('sel');
-	        console.log($(this).data("daySelected"));
 	        daysi[0]=0; daysi[6]=0;
 	    }else {
 	    	$(this).data("daySelected","1");
 	    	$(".prog-day a.we").data("daySelected","1");
 	        $(".prog-day a.we").addClass('sel');
-	        console.log($(this).data("daySelected"));
 	        daysi[0]=1; daysi[6]=1;
         }
         console.log(daysi);		
@@ -285,6 +243,7 @@ $('#aroom').live('pageinit', function(event) {
 	});	
 	
 	$("#tite-sort").click(function() {
+		titeObj.clrDisp();
 		titeObj.sort();
 		titeObj.dispAll();
 	});		
@@ -292,11 +251,10 @@ $('#aroom').live('pageinit', function(event) {
 
 $('#dialog-release').live('pageinit', function(event) {
 	$(".release-this").click(function() {
-		ckt=releaseCkt;
-		dhStr='feed='+feed+'&ckt='+ckt;
+		var ckt = zone.idx;
+		dhStr='feed='+feed+'&ckt='+zone.idx;
 		console.log(dhStr);
 		$.get("../services/deleteHold.php",  dhStr).done(function(data){
-  			alert("Data Loaded: " + data);
 		});
 		$.mobile.changePage($("#aroom"));
 	  	return false;
@@ -306,7 +264,6 @@ $('#dialog-release').live('pageinit', function(event) {
 		dhStr='feed='+feed+'&ckt='+ckt;
 		console.log(dhStr);
 		$.get("../services/deleteHold.php",  dhStr).done(function(data){
-  			alert("Data Loaded: " + data);
 		});		
 		$.mobile.changePage($("#aroom"));		
 	  	return false;
@@ -334,7 +291,6 @@ $('.test-buttons').live('pageinit', function(event) {
 		holdStr=bohoS;
 		console.log(holdStr);
 		$.post("../services/hold.php", {data: holdStr}).done(function(data){
-  			//alert("Data Loaded: " + data);
 		});
 		$.mobile.changePage($("#aroom"));
 	  	return false;
@@ -347,7 +303,6 @@ $('.test-buttons').live('pageinit', function(event) {
 		holdStr=bohoS;
 		console.log(holdStr);
 		$.post("../services/hold.php", {data: holdStr}).done(function(data){
-  			//alert("Data Loaded: " + data);
 		});
 		$.mobile.changePage($("#aroom"));
 	  	return false;
@@ -357,8 +312,6 @@ $('.test-buttons').live('pageinit', function(event) {
 $(document).on('pageshow', '#aroom', function (e) {
 	console.log("in pageshow");
 	target=$('#button-prog').get(0).offsetTop;
-	console.log(target);
-    //var target = $(localStorage.anchor).get(0);
     if(anc.length>0){
 	 	$('html, body').animate({
 	     	scrollTop: $(anc).offset().top-95
@@ -366,112 +319,17 @@ $(document).on('pageshow', '#aroom', function (e) {
 	 	anc=""; 	
     }
 });
-	
-function initMainPage(){
-	$.each(rooms, function(index, room) {
-		ima = b64[room.room];
-		$('#rooms').append('<li id="rm'+index+'" class="room-li"><a href="#"><img src="data:image/jpeg;charset=utf-8;base64, '+ima+'"><span class="temp"> <h2><span class="temp-disp"></span> &deg F </h2></span><p class="rname">'+room.rname+'<span class="timest"></span></p><p class="ui-li-aside setpt"><span class="setpt-refresh"></span>&deg F</p></a></li>');
-	});
-	$('#rooms').listview('refresh');		
-}
 
-function getData(){
-	nqrep = 'path='+feed+'&room=all';
-	console.log(nqrep);
-	$.getJSON('http://homecontrol.sitebuilt.net/services/getData.php', nqrep, function(data) {
-		//foods = data.items;
-		console.log("in getJSON data function");
-		console.log(data['items'][0]);
-		console.log(data.items);
-		therooms = data.items;
-		putData(therooms);
-		fillRoom(0);
-	});
-}
-function putData(therooms){
-	//console.log(therooms);
-	$.each(therooms, function(index, room) {
-		ftemp = a2f(room.temp);			
-		//console.log(ftemp);
-		stemp = a2f(room.setpt*2)	
-		if (room.relay==null){
-			rell="not set";
-			bkg="black";
-		}else {
-			if (room.relay == 0){
-				rell="off"; bkg=green;
-			}else{
-				rell="on"; 
-				bkg=orange; 
-			}
-		}	
-		na = new Date(room.time*1000);
-		now= sday[na.getDay()]+' '+na.getDate()+' '+na.getHours()+':'+na.getMinutes();
-		selTemp ="ul li:eq("+index+") span.temp-disp";
-		selSet ="ul li:eq("+index+") span.setpt-refresh";
-		selBorSet ="ul li:eq("+index+") p.setpt";
-		selNow ="ul li:eq("+index+") span.timest";
-		//console.log(ftemp);
-		$(selTemp).html (ftemp);
-		$(selSet).html (stemp);
-		$(selSet).css("background", bkg);
-		$(selBorSet).css("background", bkg);
-		$(selNow).html(now);
-	});
-	//$('#rooms').listview('refresh');
-}
-
-function getRoomList(){
-	/* roomlist SECTION  - load if ! in localstorage*/
-	if ( localStorage.getItem('rooms')) {
-		console.log("rooms is in local storage");
-		rooms = JSON.parse(localStorage.getItem('rooms'));
-	}
-	else {
-		console.log("need to goto server for rooms data");
-		nqrep= 'path='+feed; //+'room=all';
-		$.getJSON('http://homecontrol.sitebuilt.net/services/getData.php', nqrep, function(data) {
-			//foods = data.items;
-			console.log("in getJSON data function");
-			rooms =(data['items']);
-			localStorage.setItem('rooms',JSON.stringify(rooms));
-		});	
-	}
-}
-
-function getRoomImages(){
-	/* room images SECTION  - store each room image in its own localstorage if its not there */
-	numrooms=(rooms.length); 	
-	console.log(numrooms);
-	for (i=0;i<numrooms;i++){
-		//console.log(rooms[i]);
-		rfile ="b64_"+rooms[i].room;
-		//console.log(rfile);
-		rnam = (rfile.substring(4));
-		if ( localStorage.getItem(rfile)) {
-			//console.log(rfile +" exists");
-			b64[rnam]=  localStorage.getItem(rfile);
-		}else{
-			//console.log("no "+rfile);
-			b64[rnam] = $.ajax({url: "img/base64/"+rnam+".txt", async: false}).responseText;
-			localStorage.setItem(rfile, b64[rnam]);
-		}
-	}	
-}
 function a2f(temp) {
-	//console.log(temp);
 	if (temp==null || temp==0){
 		tftemp="--";
 	}else {tftemp = Math.round(temp/16*9/5+32);}	
-	//console.log(tftemp);	
 	return tftemp;
 }
 function s2f(temp) {
-	//console.log(temp);
 	if (temp==null || temp==0){
 		tftemp="--";
 	}else {tftemp = Math.round(temp/8*9/5+32);}	
-	//console.log(tftemp);	
 	return tftemp;
 }
 function f2a(ftemp) {
@@ -488,7 +346,6 @@ function fillRoom(rid){
     console.log("in fillRoom");
 	rom=rooms[rid];
 	tom=therooms[rid];
-	console.log(rom);
 	$('.head-rm-name').html(rom.rname);
 	$('.head-rm-name').data("rmid",rid);
 	$('.head-temp').html(a2f(tom.temp)+"&deg");
@@ -497,29 +354,40 @@ function fillRoom(rid){
 	$('.head-img').html(imag);
 	$(".button-setpt span").html(s2f(tom.setpt)+"&deg;");
 	$(".button-boost span").html(params['boostSetpt']+"&deg;");
-	console.log(rooms[rid].rname);
-	console.log(tom);	
 }
 
-function refreshRoom(rid){
-	fillRoom(rid);
-	//$('#aroom').listview('refresh');
-}
+
 function prev(hid){
 	if (hid==0){
-		hid= numrooms-1;
-		//getData();
+		hid= sys.numzones-1;
 	}else{hid--;}
-	console.log(hid);
 	return hid;
 }
  function next(hid){
-	if (hid==numrooms-1){
+	if (hid==sys.numzones-1){
 		hid=0;
-		getData();
 	}else{hid++;} 
-	console.log(hid);	
 	return hid;	
+}
+function slidethis(target, speed, direction){
+	if (direction=="left"){
+		gofirst="-=40px";
+		thengo="+=40px";
+	}else{
+		gofirst="+=40px";
+		thengo="-=40px";
+	}
+	$(target).animate({marginLeft: gofirst},
+	{			
+		duration : speed,
+		complete: function()
+		{
+			target.animate({marginLeft: thengo},
+			{
+				duration : speed
+			});
+		}
+	});
 }
 function time2PM(str){
 	var hr =parseInt(str.substring(0,2));
@@ -593,6 +461,164 @@ var titeObj ={
 	}
 };
 
+var zone = {
+	idx : 99,
+	state : new Object(),
+	load : function(i){
+		this.idx = i;
+		this.state = sys.states[i];
+		return true;
+	},
+	head : function(){
+		$('.head-rm-name').html(this.state.rname);
+		$('.head-rm-name').data("rmid",this.idx);
+		$('.head-temp').html(a2f(this.state.temp)+"&deg");
+		ima = sys.b64[zone.state.room];
+		imag='<img src="data:image/jpeg;charset=utf-8;base64, '+ima+'">';
+		$('.head-img').html(imag);	
+		$(".button-setpt span").html(s2f(zone.state.setpt)+"&deg;");
+		$(".button-boost span").html(params['boostSetpt']+"&deg;");		
+		return true;	
+	},
+	goto : function(){
+		this.refresh();
+		$.mobile.changePage($("#aroom"), "slide", true, true);
+	},
+	refresh : function(){
+		this.head();
+	}
+	
+}
+var sys = {
+	feed : 0,
+	states : new Object(),
+	zones : new Object(),
+	progs : new Object(),
+	numzones : 0,
+	maxckts : params['MAXCKTS'],
+	params : params,
+	holds : new Array(),
+	b64 :new Object(),
+	loadFeed : function(){
+		/* roomlist SECTION  - load if ! in localstorage*/
+		if ( localStorage.getItem('feed')) {
+			console.log("feed is in local storage");
+			this.feed = JSON.parse(localStorage.feed);
+			this.loadZones();
+		}
+		else {
+			localStorage.setItem('feed',"80302");
+			this.feed="80302";
+			this.loadZones();
+		}
+		return true;
+	},
+	loadZones : function(){
+		/* roomlist SECTION  - load if ! in localstorage*/
+		if ( localStorage.getItem('zones')) {
+			console.log("zones is in local storage");
+			this.zones = JSON.parse(localStorage.getItem('zones'));
+			this.numzones=(this.zones.length); 
+			this.loadProgs();
+		}
+		else {
+			console.log("need to goto server for zones data");
+			nqrep= 'path='+this.feed; //+'room=all';
+			console.log(nqrep);
+			$.getJSON('http://homecontrol.sitebuilt.net/services/getData.php', nqrep, function(data) {
+				console.log("in getJSON data function");
+				this.zones =(data['items']);
+				this.numzones=(this.zones.length); 
+				localStorage.setItem('zones',JSON.stringify(this.zones));
+				this.loadProgs();
+			});	
+		}
+		return true;
+	},
+	loadProgs : function(){
+		/* roomlist SECTION  - load if ! in localstorage*/
+		if ( localStorage.getItem('progs')) {
+			console.log("progs is in local storage");
+			this.progs = JSON.parse(localStorage.getItem('progs'));
+			this.loadB64();
+		}
+		else {
+			console.log("need to goto server for zones data");
+			this.loadB64();
+		}
+		this.numzones=(this.zones.length); 
+		return true;
+	},	
+	loadB64 : function(){
+		/* room images SECTION  - store each room image in its own localstorage if its not there */
+		for (i=0;i<this.numzones;i++){
+			rfile ="b64_"+this.zones[i].room;
+			rnam = (rfile.substring(4));
+			if ( localStorage.getItem(rfile)) {
+				this.b64[rnam]=  localStorage.getItem(rfile);
+			}else{
+				//console.log("no "+rfile);
+				this.b64[rnam] = $.ajax({url: "img/base64/"+rnam+".txt", async: false}).responseText;
+				localStorage.setItem(rfile, this.b64[rnam]);
+			}
+		}
+		this.refreshState();
+		return true;	
+	},	
+	load: function(){
+		this.loadFeed();//cascades through Zones, Progs,B64, and refreshState()
+	},
+	initMain : function(){
+		$.each(this.zones, function(index, zone) {
+			ima = sys.b64[zone.room];
+			$('#rooms').append('<li id="rm'+index+'" class="room-li"><a href="#"><img src="data:image/jpeg;charset=utf-8;base64, '+ima+'"><span class="temp"> <h2><span class="temp-disp"></span> &deg F </h2></span><p class="rname">'+zone.rname+'<span class="timest"></span></p><p class="ui-li-aside setpt"><span class="setpt-refresh"></span>&deg F</p></a></li>');
+		});
+		$('#rooms').listview('refresh');	
+		return true;	
+	},	
+	refreshState : function(){
+		nqrep = 'path='+this.feed+'&room=all';
+		console.log("in sys.refreshState()" + nqrep);
+		$.getJSON('http://homecontrol.sitebuilt.net/services/getData.php', nqrep, function(data) {
+			sys.states = data.items;
+			sys.updMain();	
+			zone.load(0);
+			zone.refresh();
+		});	
+		return true;			
+	},
+	updMain : function(){
+		$.each(this.states, function(index, state) {
+			var ftemp = a2f(state.temp);			
+			var stemp = a2f(state.setpt*2)	
+			if (state.relay==null){
+				rell="not set";
+				bkg="black";
+			}else {
+				if (state.relay == 0){
+					rell="off"; bkg=green;
+				}else{
+					rell="on"; 
+					bkg=orange; 
+				}
+			}	
+			na = new Date(state.time*1000);
+			now= sday[na.getDay()]+' '+na.getDate()+' '+na.getHours()+':'+na.getMinutes();
+			selTemp ="ul li:eq("+index+") span.temp-disp";
+			selSet ="ul li:eq("+index+") span.setpt-refresh";
+			selBorSet ="ul li:eq("+index+") p.setpt";
+			selNow ="ul li:eq("+index+") span.timest";
+			//console.log(ftemp);
+			$(selTemp).html (ftemp);
+			$(selSet).html (stemp);
+			$(selSet).css("background", bkg);
+			$(selBorSet).css("background", bkg);
+			$(selNow).html(now);
+		});
+		return true;
+	}
+};
+
 /*
 http://homecontrol.sitebuilt.net/services/getData.php?path=80302&room=all
 
@@ -613,7 +639,8 @@ time: "1363038504"
 */
 
 function progtest(){
-	console.log("in progtest");		
+	console.log("in progtest");	
+	progs = new Object();	
 	sched= new Object();
 	ts=new Object();
 	ts.time = "10:30";
@@ -627,14 +654,17 @@ function progtest(){
 	sched.feed= "80302";
 	sched.name = "current";
 	sched.ckts= ckt;
+	progs[sched.name] = sched;
 	console.log(day);
 	console.log(ckt);
 	console.log(sched);
 	console.log(sched.ckts[11]);
 	console.log(sched.ckts[11][0].time);
 //{"feed":"80302","ckts":[[{"time":"9:30","setpt":"147"},null,null,null,null,null,{"time":"9:30","setpt":"147"}],null,null,null,null,null,null,null,null,null,null,[{"time":"9:30","setpt":"147"},null,null,null,null,null,{"time":"9:30","setpt":"147"}]]}
-	schedJ =JSON.stringify(sched);
-	console.log(schedJ);
+	schedJ = JSON.stringify(sched);
+	progsJ =JSON.stringify(progs);
+	localStorage.progs=progsJ;	
+	console.log(progsJ);
 	console.log(ckt.length);
 	console.log(sched.ckts[11]==null);
 	console.log(sched.ckts[11][7]==null);
@@ -642,4 +672,4 @@ function progtest(){
 			alert("Data Loaded: " + data);		
 	});
 }
-
+//progtest();
