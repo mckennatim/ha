@@ -88,7 +88,7 @@
 </div>
 	
 
-<div data-role="page" data-theme="b" id="aroom" data-url="aroom" data-transition="slide">
+<div data-role="page" data-theme="b" id="aroom" data-url="aroom" data-transition="">
 <div class="head-rm">	
 	<header data-role="header" data-position="fixed" data-theme="b">
 		<div class="head-img">
@@ -176,29 +176,30 @@
 				</div><!--prog-load-->	
 				<div class="prog-day">
 					<div class="day2">
-					<ul >
-					    <li><a href="#" class="d-button left" >Everyday</a></li>
-					    <li><a href="#" class="wd-button" >Weekday</a></li>
-					    <li><a href="#" class="we-button right">Weekend</a></li>				    
+					<ul class="view">
+					    <li><a id="button-evday" href="#" class="d-button left" >Everyday</a></li>
+					    <li><a id="button-wkday" href="#" class="wd-button" >Weekday</a></li>
+					    <li><a id="button-wkend" href="#" class="we-button right">Weekend</a></li>				    
 					</ul>						
 					<ul >
-					    <li><a href="#" data-dow="1" class="d wd left">M</a></li>
-					    <li><a href="#" data-dow="2" class="d wd" >T</a></li>
-					    <li><a href="#"  data-dow="3" class="d wd" >W</a></li>
-					    <li><a href="#"  data-dow="4" class="d wd" >Th</a></li>
-					    <li><a href="#"  data-dow="5" class="d wd" >F</a></li>
-					    <li><a href="#"  data-dow="6" class="d we" >Sa</a></li>
-					    <li><a href="#"  data-dow="0" class="d we right" >Su</a></li>				    
+					    <li><a id="but-day1" href="#" data-dow="1" class="d wd left">M</a></li>
+					    <li><a id="but-day2" href="#" data-dow="2" class="d wd" >T</a></li>
+					    <li><a id="but-day3" href="#"  data-dow="3" class="d wd" >W</a></li>
+					    <li><a id="but-day4" href="#"  data-dow="4" class="d wd" >Th</a></li>
+					    <li><a id="but-day5" href="#"  data-dow="5" class="d wd" >F</a></li>
+					    <li><a id="but-day6" href="#"  data-dow="6" class="d we" >Sa</a></li>
+					    <li><a id="but-day0" href="#"  data-dow="0" class="d we right" >Su</a></li>				    
 					</ul>	
 					</div><!--day2-->				
 				</div><!--prog-day-->
 				<div class="prog-time">
 					<div class="prog-time-box">
 						<ul >
-						    <li><a id="tite-add" href="#" class="pt left" >Add</a></li>
-						    <li><a id="tite-save" href="#" class="pt" >Save</a></li>
-						    <li><a id="tite-sort" href="#" class="pt">Sort</a></li>		
-						    <li><a id="tite-clear" href="#" class="pt right">Clear</a></li>		    
+						    <li><a id="tite-modify" href="#" class="pt left" >Modify</a></li>
+						    <li><a id="tite-add" href="#" class="pt view" >Add</a></li>
+						    <li><a id="tite-sort" href="#" class="pt view" >Sort</a></li>
+						    <li><a id="tite-clear" href="#" class="pt view">Clear</a></li>		
+						    <li><a id="tite-save" href="#" class="pt view right">Save</a></li>		    
 						</ul>
 						<div class="prog-t">
 							<label for="prog-t">time</label>

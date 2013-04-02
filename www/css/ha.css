@@ -198,6 +198,9 @@
 	padding: 7px 15px 7px 12px;
 	background: #5791BC ;
 }
+.prog-time div.prog-time-box a{
+	padding: 7px 8px 7px 8px;
+}
 .prog-day div.day2 a.sel{
 	color:black;
 	background: #B1E9CF;
