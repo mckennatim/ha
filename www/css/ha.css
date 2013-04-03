@@ -11,7 +11,7 @@
 
 }
 .button-big a {
-	margin:6px;
+	margin:4px;
 	background:white;
    width: 90px; /*div height is set by img size+padding, width=110 otherwise goes to screenwidth*/
    display: block; /*otherwise button will shrink to text size*/
@@ -256,17 +256,22 @@
 .prog-copy-zones p{
 	float:left;
 }
+.prog-copy-zones ul{
+	vertical-align: top;
+}
 .prog-copy-zones li{
-	background: #D4F4FF;
+	background: #D6AF21;
 	border: 1px outset #B0E8FF;
-	padding:5px;
+	padding:0 0 4px 4px;
+	vertical-align: top;
 }
 .prog-copy-zones a{
-	width:25px;                            :;
+	width:25px;   
+	vertical-align: top;                         :;
 }
 .prog-copy-zones img{
-	height: 18px;
-	width:18px;
+	height: 28px;
+	width:24px;
 }
 .prog-copy-zones span{
 	padding:0 0 0 10px;
@@ -276,6 +281,9 @@
 	margin:0px;
 	padding:0 0 0 10px;
 	float:left;
+}
+.prog-copy-zones li.zsel {
+	background: #FFFF66;
 }
 .prog-save{
 	height:100px;

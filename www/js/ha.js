@@ -282,6 +282,13 @@ $('#aroom').live('pageinit', function(event) {
     $("#tite-save").click(function() {
         if (zone.mod){ 
             zone.save();
+            thisid='#zcl'+zone.idx;
+            thisimg= thisid + ' img';
+            ckimg='img/icons/ckbx-cked.gif';
+            $(thisimg).attr('src',ckimg);
+            sys.zonecked[thisid]=1;
+            $(thisid).addClass('zsel');
+
         } else {
             console.log("button is disabled");
         }
@@ -294,7 +301,29 @@ $('#aroom').live('pageinit', function(event) {
             console.log("change to modify");
             zone.modify();
         }
-    });            
+    }); 
+    $(".zone-list li").click(function() {
+        zid = $(this)[0].dataset.zid;
+        iscked = sys.zonecked[zid];
+        thisid= '#'+($(this).attr('id'));
+        thisimg= thisid + ' img';
+        ckimg='img/icons/ckbx-cked.gif';
+        uckimg='img/icons/ckbx-empty.gif';
+        if (iscked==0){ 
+            $(thisimg).attr('src',ckimg);
+            sys.zonecked[zid]=1;
+            $(thisid).addClass('zsel');
+        } else {
+            $(thisimg).attr('src',uckimg);
+            sys.zonecked[zid]=0;
+            $(thisid).removeClass('zsel');
+        }
+    }); 
+    $("#prog-server-button").click(function() {
+        console.log('save to server button'); 
+        sys.prog2server();
+    });
+                   
 });//end of aroom pageinit AAAAAAAAAAAAROOOOOMs 
 
 $('#dialog-release').live('pageinit', function(event) {
@@ -359,7 +388,7 @@ $('.test-buttons').live('pageinit', function(event) {
 
 $(document).on('pageshow', '#aroom', function (e) {
     console.log("in pageshow");
-    target=$('#button-prog').get(0).offsetTop;
+    target=$('#prog-server-button').get(0).offsetTop;
     if(anc.length>0){
         $('html, body').animate({
             scrollTop: $(anc).offset().top-95
@@ -483,6 +512,7 @@ var titeObj ={
         sel.unbind('click');
         sel.bind('click', function(){
             ddd=$(this)[0];
+            console.log('indec of this.li is '+ $(this).index())
             var ti = ddd.dataset.ti;
             console.log(ti);
             var timl=ddd.dataset.timl;
@@ -490,7 +520,7 @@ var titeObj ={
             titeObj.arr.splice(ti,1);
             $(titeObj.tisel).val(timl);
             $(titeObj.tesel).val(templ);
-            $(this).empty();
+            $(this).remove();
         });     
     },
     disp : function(idx){
@@ -548,6 +578,7 @@ var zone = {
         this.head();
         this.mod = false;
         this.view();
+        this.show(1);
     },
     ckMod :function(){
         if (this.mod){
@@ -594,11 +625,11 @@ var zone = {
         for (i=0;i<7;i++){
             if (this.daysi[i]==1){
                 this.prog[i]=titeObj.arr;
-                sys.progs[sys.feed].current[this.idx]=this.prog;
-                localStorage.setItem('progs',JSON.stringify(sys.progs));
-                console.log('saved to local storage');
             }
         }
+        sys.progs[sys.feed].current[this.idx]=this.prog;
+        localStorage.setItem('progs',JSON.stringify(sys.progs));
+        console.log('saved to local storage');
     },
     putDay :function(i){
         zone.prog[i]=this.arr[i];
@@ -621,6 +652,7 @@ var sys = {
     progs : new Object(),
     current : new Object(),
     numzones : 0,
+    zonecked : [0,0,0,0,0,0,0,0,0,0,0,0],
     maxckts : params['MAXCKTS'],
     params : params,
     holds : new Array(),
@@ -661,6 +693,7 @@ var sys = {
                 //sys.loadProgs();
             }); 
         }
+        this.makeZlist();
         return true;
     },
     loadProgs : function(){
@@ -699,9 +732,6 @@ var sys = {
         this.loadZones();
         this.loadProgs();
         console.log(sys.numzones);
-        if (sys.zones==0){
-            location.reload(true);
-        }
         this.loadB64();
     },
     initMain : function(){
@@ -765,7 +795,28 @@ var sys = {
             $(selNow).html(now);
         });
         return true;
+    },
+    makeZlist : function(){
+        $('.zone-list').empty();
+        for(i=0;i<sys.numzones;i++){
+            zid=sys.zones[i].circuit.substring(3);           
+            listr='<li id=zcl'+zid+' data-cked="0" data-zid="'+zid+'"><a href="#" ><img src="img/icons/ckbx-empty.gif" title="copy this zones program to here"/></a><span>'+sys.zones[i].rname+'</span></li>';
+            $('.zone-list').append(listr);
+        }
+        //$('.zone-list').listview('refresh');
+    },
+    prog2server : function(){
+         for(i=0;i<sys.maxckts;i++){
+            if(sys.zonecked[i]==1){
+                sys.progs[sys.feed].current[i]=zone.prog
+            }
+        }
+        progsJ=JSON.stringify(sys.progs);
+        localStorage.setItem('progs', progsJ); 
+        $.post("../services/newProg.php", {data: progsJ}).done(function(data){    
+    });       
     }
+
 };
 
 /*
