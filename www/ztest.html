@@ -16,31 +16,61 @@
 	<script src="js/jquery.cookies.js"></script>
 	<script type='text/javascript' src="js/ha.js"></script>
 	<script type='text/javascript' >
-		progJ=localStorage.progs;
-		proga=JSON.parse(progJ);
-		l=proga.length;
-		tite=new Object();
-		ckts=new Array();
-		days=new Array();
-		day = new Array();
-		tite['time']='12:12:00';
-		tite['temp']=84;
-		day.push(tite);
-		day.push(tite);
-		days.push(day);
-		ckts.push(days);
-		for(i=0;i<l;i++){
-			tite['time']=proga[i]['clock'];
-			tite['temp']=proga[i]['setpt'];
-			day.push(tite);
-			days[proga[i]['day']]=day;
-			ckts[proga[i]['ckt']]=days;
-		}
-		console.log(ckts);
 
 	</script>
 </head>
 <body>
-	
+					<div class="prog-copy-zones" >	
+						<ul>
+							<li  ><a href="#" ><img src="img/icons/pencil.png" title="edit" height="20px" width="20px"/></a><span>Living room</span>
+							<li  ><a href="#" ><img src="img/icons/pencil.png" title="edit" height="20px" width="20px"/></a><span>Living room</span>
+							<li  ><a href="#" ><img src="img/icons/pencil.png" title="edit" height="20px" width="20px"/></a><span>Living room</span>
+							<li  ><a href="#" ><img src="img/icons/pencil.png" title="edit" height="20px" width="20px"/></a><span>Living room</span>
+							<li  ><a href="#" ><img src="img/icons/pencil.png" title="edit" height="20px" width="20px"/></a><span>Living room</span>
+							<li  ><a href="#" ><img src="img/icons/pencil.png" title="edit" height="20px" width="20px"/></a><span>Living room</span>
+						</ul
+				   </div> 
+
+						<div class="prog-copy-zones" >	
+       			 	
+                	<label>Copy Program To</label>
+                	<ul>
+                 	<li><input type="checkbox" name="zck0" value="Cat" ><p>living room </p></li>
+                  <li><input type="checkbox" name="zck1" value="Dog" ><p>Kid's Study</p></li>
+                  <li><input type="checkbox" name="zck2" value="Bird" ><p>Master Suite</p></li>
+                 	<li><input type="checkbox" name="zck3" value="Cat" ><p>living room </p></li>
+                  <li><input type="checkbox" name="zck4" value="Dog" ><p>Kid's Study</p></li>
+                  <li><input type="checkbox" name="zck5" value="Bird" ><p>Master Suite</p></li>
+               	</ul>
+				   </div> 
+<div data-role="fieldcontain" >
+  <fieldset data-role="controlgroup" data-mini="true">
+  	<label>Copy To</label>
+    <input type="checkbox" name="checkbox-2" id="checkbox-2" class="custom" />
+    <label for="checkbox-2">I agree</label>    
+    <input type="checkbox" name="checkbox-3" id="checkbox-3" class="custom" />
+    <label for="checkbox-3">I agree</label>
+    <input type="checkbox" name="checkbox-4" id="checkbox-4" class="custom" />
+    <label for="checkbox-4">I agree</label>
+    <input type="checkbox" name="checkbox-5" id="checkbox-5" class="custom" />
+    <label for="checkbox-5">I agree</label>
+    <input type="checkbox" name="checkbox-6" id="checkbox-6" class="custom" />
+    <label for="checkbox-6">I agree</label>    
+  </fieldset>
+</div>
+						<div  >
+						  <fieldset s data-mini="true">
+						    <input type="checkbox" name="checkbox-2" id="checkbox-2" class="" />
+						    <label for="checkbox-2">I agree</label>    
+						    <input type="checkbox" name="checkbox-3" id="checkbox-3" class="" />
+						    <label for="checkbox-3">I agree</label>
+						    <input type="checkbox" name="checkbox-4" id="checkbox-4" class="" />
+						    <label for="checkbox-4">I agree</label>
+						    <input type="checkbox" name="checkbox-5" id="checkbox-5" class="" />
+						    <label for="checkbox-5">I agree</label>
+						    <input type="checkbox" name="checkbox-6" id="checkbox-6" class="" />
+						    <label for="checkbox-6">I agree</label>    
+						  </fieldset>
+						</div>
 </body>
 </html>	

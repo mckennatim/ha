@@ -253,22 +253,38 @@ $('#aroom').live('pageinit', function(event) {
     });
 
     $("#tite-add").click(function() {
-        titeObj.add();
-        titeObj.bindEdit();
+        if (zone.mod){ 
+            titeObj.add();
+            titeObj.bindEdit();
+        } else {
+            console.log("button is disabled");
+        }            
     });
     
     $("#tite-clear").click(function() {
-        titeObj.clrArr();
-        titeObj.clrDisp();
+        if (zone.mod){ 
+            titeObj.clrArr();
+            titeObj.clrDisp();
+        } else {
+            console.log("button is disabled");
+        }
     }); 
     
     $("#tite-sort").click(function() {
-        titeObj.clrDisp();
-        titeObj.sort();
-        titeObj.dispAll();
+        if (zone.mod){ 
+            titeObj.clrDisp();
+            titeObj.sort();
+            titeObj.dispAll();
+        } else {
+            console.log("button is disabled");
+        }    
     });   
     $("#tite-save").click(function() {
-        zone.save();
+        if (zone.mod){ 
+            zone.save();
+        } else {
+            console.log("button is disabled");
+        }
     }); 
     $("#tite-modify").click(function() {
         if(zone.mod){
@@ -449,7 +465,7 @@ var titeObj ={
         var timel=$(this.tisel).val(); //"7:30";        
         var time = time2PM(timel);
         var templ = $(this.tesel).val();
-        too['time']=timel;
+        too['clock']=timel;
         too['setpt']=templ; 
         this.arr.push(too);     
     },
@@ -494,7 +510,7 @@ var titeObj ={
     clrDisp : function(){$(this.ulsel).empty();},
     sort : function(){
         this.arr.sort(function(a, b){
-            var timeA=parseInt(a.time.substring(0,2)), timeB=parseInt(b.time.substring(0,2))
+            var timeA=parseInt(a.clock.substring(0,2)), timeB=parseInt(b.clock.substring(0,2))
             return timeA-timeB //sort by date ascending
         }); 
     }
@@ -546,7 +562,7 @@ var zone = {
         console.log("seeting buttons for editing");
         this.mod = true;
         $(".view").css("opacity", "1.0");
-        $('#tite-modify').html("View day");
+        $('#tite-modify').html("By Day");
         $('#tite-modify').css("opacity", "1.0");
     },
     view : function(){
@@ -578,6 +594,9 @@ var zone = {
         for (i=0;i<7;i++){
             if (this.daysi[i]==1){
                 this.prog[i]=titeObj.arr;
+                sys.progs[sys.feed].current[this.idx]=this.prog;
+                localStorage.setItem('progs',JSON.stringify(sys.progs));
+                console.log('saved to local storage');
             }
         }
     },

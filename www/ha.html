@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<title>Homecontrol</title>
   	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
 	<!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
 	<meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1">
@@ -37,8 +38,8 @@
 				<div data-role="collapsible" data-inset="false">
 					<h2>Temperature</h2>
 					<ul data-role="listview">
-						<li data-icon="false"><a href="#" data-rel="dialog">Set Point<span class="thelp"> -> in upper right<span></a></li>
-						<li data-icon="false"><a href="#" data-rel="dialog">Current Temp<span class="thelp"> -> above room name<span></a></li>
+						<li data-icon="false"><a href="#" data-rel="dialog">Set Point<span class="thelp"> -> in upper right</span></a></li>
+						<li data-icon="false"><a href="#" data-rel="dialog">Current Temp<span class="thelp"> -> above room name</span></a></li>
 					</ul>
 				</div><!-- /collapsible -->
 				<div data-role="collapsible" data-inset="false">
@@ -92,7 +93,7 @@
 <div class="head-rm">	
 	<header data-role="header" data-position="fixed" data-theme="b">
 		<div class="head-img">
-			<img src="http://homecontrol.sitebuilt.net/www/img/small/peris.JPG" />
+			<img src="http://homecontrol.sitebuilt.net/www/img/small/peris.JPG" alt="peri"/>
 		</div>	
 		<div class="head-txt">
 			<div class="head-rm-name">
@@ -120,7 +121,7 @@
 						</a></label>
 				    	<input type="time" data-clear-btn="true" name="time-boost" id="time-boost">
 					</div><!--boost-inputs-->
-					<div class"boost-button">
+					<div class="boost-button">
 				    <div class="button-big">
 						<a class="button-boost" href="#" data-rel="dialog">
 							<img src="http://homecontrol.sitebuilt.net/www/img/icons/boost80.png" title="click to boost temp"/>
@@ -214,32 +215,41 @@
 						</div>	
 					</div><!--prog-time-box-->				
 				</div><!--prog-time-->
-				<div class="prog-copy">
-				</div><!--prog-copy-->	
+				<!--div class="prog-copy"-->
+					<div class="prog-copy-save-but" >
+						<div class="button-big" >
+							<a id="button-prog" class="button-prog" href="#" data-rel="dialog">
+								<img src="http://homecontrol.sitebuilt.net/www/img/icons/setpt80.png" />
+								<span >71&deg;</span>				
+							</a>
+						</div><!--button-big-->	
+					   <div class="prog-copy-save">
+					   	<label>Save As:</label>	
+			            <select name="Save As" data-mini="true" data-theme="e">
+		                <option value="double chocolate">Current</option>
+		                <option value="vanilla">Vanilla</option>
+		                <option value="strawberry">Strawberry</option>
+		                <option value="caramel">Caramel</option>
+	        				</select>
+	        			</div>					
+					</div>
+					<div class="prog-copy-zones" >	
+						<label>Copy To:</label>
+						<ul>
+							<li  ><a href="#" ><img src="img/icons/pencil.png" title="edit" /></a><span>Living room</span></li>
+							<li  ><a href="#" ><img src="img/icons/pencil.png" title="edit" /></a><span>Living room</span></li>
+							<li  ><a href="#" ><img src="img/icons/pencil.png" title="edit" /></a><span>Living room</span></li>
+							<li  ><a href="#" ><img src="img/icons/pencil.png" title="edit" /></a><span>Living room</span></li>
+							<li  ><a href="#" ><img src="img/icons/pencil.png" title="edit" /></a><span>Living room</span></li>
+							<li  ><a href="#" ><img src="img/icons/pencil.png" title="edit" /></a><span>Living room</span></li>
+						</ul>
+				   </div> 
+
+				<!--prog-copy-->	
 				<div class="prog-save">
 				</div><!--prog-save-->															
-			    <div class="button-big">
-					<a id="button-prog" class="button-prog" href="#" data-rel="dialog">
-						<img src="http://homecontrol.sitebuilt.net/www/img/icons/setpt80.png" />
-						<span >71&deg;</span>				
-					</a>
-				</div><!--button-big-->			
-				<div class="prog-buttons">
-					<p>
-					    <a class="prog-b1" href="#" data-role="button" data-inline="true" data-mini="true">Release</a>
-					</p>    </br>
-					    <p>until  &darr;<a id="prog-datetime-img">
-					    	<img src="http://homecontrol.sitebuilt.net/www/img/icons/datetime34-64.png" title="set until..."/>
-				    	</a></p>	
-				</div><!--set-buttons-->
-				<div class="prog-inputs">
-			    	<input type="datetime-local" data-clear-btn="false" name="prog-datetime" id="prog-datetime" >
-					<label for="slider-prog">Adjust Set point to:</label>
-					<input type="range" name="slider-prog" id="slider-prog"  min="55" max="80" value="64"/>
-				</div><!--prog-inputs-->
+
 			</div><!--prog-div-->				
-			<label for="slider-2">social darwinismr:</label>
-			<input type="range" name="slider-2" id="slider-2" value="60" min="0" max="100" />
 			<p>Foreign Policy
 social Darwinism
 strongest or fittest should survive and flourish in society, while the weak and unfit should be allowed to die. This theory was used to promote the idea that the white European race was superior to others, and therefore, destined to rule over them.
@@ -264,7 +274,7 @@ A policy of extending a country's power and influence through diplomacy or milit
 <!--dialog-prog-->
 <div id="dialog-prog" class="test-buttons" data-role="dialog">     
 	<div data-role="header">
-		<a href="#main" data-icon="back"  id="goback" ...data-role="button" >home</a>
+		<a href="#main" data-icon="back"  class="goback" ...data-role="button" >home</a>
 			<h2>testpg</h2>
 	</div><!-- /header -->       
 	<div data-role="content">	
@@ -279,7 +289,7 @@ A policy of extending a country's power and influence through diplomacy or milit
 <!--dialog-boho-->
 <div id="dialog-boho" class="test-buttons" data-role="dialog">     
 	<div data-role="header">
-		<a href="#main" data-icon="back"  id="goback" ...data-role="button" >home</a>
+		<a href="#main" data-icon="back"  class="goback" ...data-role="button" >home</a>
 			<h2>testpg</h2>
 	</div><!-- /header -->       
 	<div data-role="content">	
