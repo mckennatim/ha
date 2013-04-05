@@ -6,7 +6,7 @@ var black= "rgba(0,0,0,.75)";
 /*intialize app -- if not already in local storage*/
 var params =new Object();
 params['MAXCKTS']=12;
-params['boostSetpt']=74;
+params['boostSetpt']=68;
 params['holdForDays']=30;
 var bohoA = new Object();
 var bohoS ="doogypoo";
@@ -102,16 +102,12 @@ $('#aroom').live('pageinit', function(event) {
         }
         bs_time=Date.parse(bst)/1000;
         bf_time=Date.parse(bft)/1000;
-        bohoA.feed=sys.feed;
-        bohoA.ckt=zone.idx;
-        bohoA.start= bs_time;
-        bohoA.finish=bf_time;
-        bohoA.setpt=f2a(hoSetpt);
-        bohoS= JSON.stringify(bohoA);
+        zone.boho.start= bs_time;
+        zone.boho.finish=bf_time;       
+        zone.boho.setpt=hoSetpt;        
         bohoM ="Hold "+zone.state.rname+" at "+hoSetpt+"&deg;  until "+bft;
         $('.bohoM').html(bohoM);
-        $('.hold-all-yes').show();
-        $.mobile.changePage($("#dialog-boho"), "pop", true, true);
+        $.mobile.changePage($("#dialog-setpt"), "pop", true, true);
     }); 
     $(".release").click(function() {
         /*delete records from holds for this room or all rooms, send current room id */
@@ -134,20 +130,12 @@ $('#aroom').live('pageinit', function(event) {
         forhrs=$("#slider-boost-hrs").val();
         bs_time=Date.parse(d)/1000;
         bf_time=bs_time+forhrs*60*60;
-        console.log(params['boostSetpt']);
-        bohoA.feed=sys.feed;
-        bohoA.ckt=zone.idx;
-        bohoA.start= bs_time;
-        bohoA.finish=bf_time;       
-        bohoA.setpt=f2a(params['boostSetpt']);
-        console.log(bohoA);
-        bohoS= JSON.stringify(bohoA);
+        zone.boho.start= bs_time;
+        zone.boho.finish=bf_time;       
+        zone.boho.setpt=params['boostSetpt'];
         bohoM ="Boost "+zone.state.rname+" to "+params['boostSetpt']+"&deg; "+when+" for "+forhrs+" hour(s)";
-        console.log(bohoS);
-        console.log(bohoM);
-        $('.bohoM').html(bohoM);
-        $('.hold-all-yes').hide();
-        $.mobile.changePage($("#dialog-boho"), "pop", true, true);  
+        $('.boost-message').html(bohoM);
+        $.mobile.changePage($("#dialog-boost"), "pop", true, true);  
         return false;
     }); 
     //-------------prog section------------------
@@ -329,8 +317,10 @@ $('#aroom').live('pageinit', function(event) {
 $('#dialog-release').live('pageinit', function(event) {
     $(".release-this").click(function() {
         var ckt = zone.idx;
-        dhStr='feed='+feed+'&ckt='+zone.idx;
+        dhStr='feed='+sys.feed+'&ckt='+zone.idx;
         console.log(dhStr);
+        delete sys.bohos[ckt];
+        localStorage.setItem('bohos',JSON.stringify(sys.bohos));           
         $.get("../services/deleteHold.php",  dhStr).done(function(data){
         });
         $.mobile.changePage($("#aroom"));
@@ -338,11 +328,64 @@ $('#dialog-release').live('pageinit', function(event) {
     });
     $(".release-all").click(function() {
         ckt=99;
-        dhStr='feed='+feed+'&ckt='+ckt;
+        dhStr='feed='+sys.feed+'&ckt='+ckt;
         console.log(dhStr);
+        delete sys.bohos;
+        sys.bohos = sys.blank12;
+        localStorage.setItem('bohos',JSON.stringify(sys.bohos));         
         $.get("../services/deleteHold.php",  dhStr).done(function(data){
         });     
         $.mobile.changePage($("#aroom"));       
+        return false;
+    }); 
+});//end of pageinit????
+
+$('#dialog-boost').live('pageinit', function(event) {   
+    $(".boost-yes").click(function() {   
+        console.log("clicked hold-yes");
+        holdObj=zone.boho;
+        holdObj.feed=sys.feed;
+        holdObj.ckt=zone.idx;        
+        holdStr=JSON.stringify(holdObj);
+        sys.bohos[zone.idx]=zone.boho;
+        localStorage.setItem('bohos',JSON.stringify(sys.bohos));
+        console.log(holdStr);
+        $.post("../services/hold.php", {data: holdStr}).done(function(data){
+        });
+        $.mobile.changePage($("#aroom"));
+        return false;
+    });            
+});//end of pageinit????
+
+$('#dialog-setpt').live('pageinit', function(event) {
+    $(".hold-yes").click(function() {
+        holdObj=zone.boho;
+        holdObj.feed=sys.feed;
+        holdObj.ckt=zone.idx;        
+        holdStr=JSON.stringify(holdObj);        
+        sys.bohos[zone.idx]=zone.boho;
+        localStorage.setItem('bohos',JSON.stringify(sys.bohos));           
+        console.log("clicked hold-yes");        
+        console.log(holdStr);
+        $.post("../services/hold.php", {data: holdStr}).done(function(data){
+        });
+        $.mobile.changePage($("#aroom"));
+        return false;
+    });
+    $(".hold-all-yes").click(function() {
+        for (i=0;i<sys.maxckts;i++){
+            sys.bohos[i]=zone.boho;
+        }
+        localStorage.setItem('bohos',JSON.stringify(sys.bohos));           
+        console.log("clicked hold-all-yes");        
+        holdObj=zone.boho;
+        holdObj.feed=sys.feed;
+        holdObj.ckt=99;        
+        holdStr=JSON.stringify(holdObj);
+        console.log(holdStr);
+        $.post("../services/hold.php", {data: holdStr}).done(function(data){
+        });
+        $.mobile.changePage($("#aroom"));
         return false;
     }); 
 });//end of pageinit????
@@ -362,29 +405,7 @@ $('#dialog-prog').live('pageinit', function(event) {
 
 });//end of dialog-prog pageinit????
     
-$('.test-buttons').live('pageinit', function(event) {   
-    $(".hold-yes").click(function() {   
-        console.log("clicked hold-yes");        
-        holdStr=bohoS;
-        console.log(holdStr);
-        $.post("../services/hold.php", {data: holdStr}).done(function(data){
-        });
-        $.mobile.changePage($("#aroom"));
-        return false;
-    });
-    $(".hold-all-yes").click(function() {   
-        console.log("clicked hold-all-yes");        
-        bohoA.ckt=99;
-        console.log(bohoA);
-        bohoS= JSON.stringify(bohoA);
-        holdStr=bohoS;
-        console.log(holdStr);
-        $.post("../services/hold.php", {data: holdStr}).done(function(data){
-        });
-        $.mobile.changePage($("#aroom"));
-        return false;
-    });             
-});//end of pageinit????
+
 
 $(document).on('pageshow', '#aroom', function (e) {
     console.log("in pageshow");
@@ -550,6 +571,7 @@ var zone = {
     dayx : [0,0,0,0,0,0,0],
     daysi : [0,0,0,0,0,0,0],
     idx : 99,
+    boho : new Object(),
     state : new Object(),
     prog : new Array(),
     mod : false,
@@ -650,9 +672,11 @@ var sys = {
     states : new Object(),
     zones : new Object(),
     progs : new Object(),
+    bohos : new Array(),
     current : new Object(),
     numzones : 0,
     zonecked : [0,0,0,0,0,0,0,0,0,0,0,0],
+    blank12 : [null,null,null,null,null,null,null,null,null,null,null,null],
     maxckts : params['MAXCKTS'],
     params : params,
     holds : new Array(),
@@ -689,7 +713,7 @@ var sys = {
                 sys.zones =(data['items']);
                 sys.numzones=(sys.zones.length); 
                 localStorage.setItem('zones',JSON.stringify(sys.zones));
-                window.location.reload();
+                window.location.reload(true);
                 //sys.loadProgs();
             }); 
         }
@@ -733,6 +757,7 @@ var sys = {
         this.loadProgs();
         console.log(sys.numzones);
         this.loadB64();
+        this.loadBohos();
     },
     initMain : function(){
         console.log('in init main');
@@ -765,7 +790,22 @@ var sys = {
             sys.current = sys.progs[sys.feed]['current'];
         }); 
         return true;            
-    },    
+    },  
+    loadBohos : function(){
+        if ( localStorage.getItem('bohos')) {
+            console.log("bohos is in local storage");
+            this.bohos = JSON.parse(localStorage.getItem('bohos'));
+        } else{
+            nqrep = 'type=boho&feed='+this.feed;
+            console.log("in getBoho()" + nqrep);
+            $.getJSON('http://homecontrol.sitebuilt.net/services/get.php', nqrep, function(data) {
+                sys.bohos = data.items;
+                console.log(sys.bohos);
+                localStorage.setItem('bohos',JSON.stringify(sys.bohos));    
+            });
+        }
+        return true;            
+    },      
     updMain : function(){
         $.each(this.states, function(index, state) {
             var ftemp = a2f(state.temp);            

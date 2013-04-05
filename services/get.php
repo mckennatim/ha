@@ -4,6 +4,7 @@ echo header("Content-type: text/plain");
 ChromePhp::log("in get.php");
 //http://homecontrol.sitebuilt.net/services/get.php?type=prog&feed=80302&some=5
 //http://homecontrol.sitebuilt.net/services/get.php?type=prog&feed=80302&ver=current
+//http://homecontrol.sitebuilt.net/services/get.php?type=boho&feed=80302
 $data = $_GET;
 $type=$_GET['type'];
 $feed=$_GET['feed'];
