@@ -90,34 +90,40 @@
 	
 
 <div data-role="page" data-theme="b" id="aroom" data-url="aroom" data-transition="">
-<div class="head-rm">	
 	<header data-role="header" data-position="fixed" data-theme="b">
-		<div class="head-img">
-			<img src="img/small/peris.JPG" alt="peri"/>
-		</div>	
-		<div class="head-txt">
-			<div class="head-rm-name">
-				Living Room
+		<div class="head-rm">	
+			<div class="head-img">
+				<img src="img/small/peris.JPG" alt="peri"/>
+			</div>	
+			<div class="head-txt">
+				<div class="head-rm-name">
+					Living Room
+				</div>
+				<div class="head-temp">
+					70&deg;
+				</div>
+			</div><!--head-txt-->
+			<div class="head-menu" >
+				<a class="arm-prev" href="#" ><img src="img/icons/left.gif" title="previous zone" /></a>
+				<a href="#main-page" ><img src="img/icons/home.gif" title="home page" /></a>
+				<a class="arm-refresh" href="#" ><img src="img/icons/Refresh112.gif" title="refresh" /></a>
+				<a class="arm-next" href="#" ><img src="img/icons/right.gif" title="next zone" /></a>
 			</div>
-			<div class="head-temp">
-				70&deg;
-			</div>
-	</div><!--head-txt-->
-	<div class="head-menu" data-role="controlgroup"  data-mini="true" data-theme="b">
-    <a class="arm-prev" href="#" data-role="button" data-iconpos="notext" data-icon="arrow-l" >prev</a>
-    <a class="arm-next" href="#" data-role="button" data-iconpos="notext" data-icon="arrow-r" >next</a>
-    <a href="#main-page" data-role="button" data-iconpos="notext" data-icon="home" >home</a>  
-</div>
+			<!--
+				<a class="arm-prev" href="#" data-role="button" data-iconpos="notext" data-icon="arrow-l" >prev</a>
+				<a class="arm-next" href="#" data-role="button" data-iconpos="notext" data-icon="arrow-r" >next</a>
+				<a href="#main-page" data-role="button" data-iconpos="notext" data-icon="home" >home</a> 
+			-->
 	</header>
-</div>
-    <div id="page-room" data-role="content" class="my-page" data-theme="b">		
+
+   <div id="page-room" data-role="content" class="my-page" data-theme="b">		
 		<div class="col1">
 			<div class="col1a">
 				<div class="boost-div">
 					<h4>BOOST temperature temporarily</h4>
 					<div class="boost-inputs">
 						<label for="time-boost">now or @ <a id="clock">
-							<img src="img/icons/clock34.png" title="click clock to set start time" />	
+							<img src="img/icons/clock34b.gif" title="click clock to set start time" />	
 						</a></label>
 				    	<input type="time" data-clear-btn="true" name="time-boost" id="time-boost">
 					</div><!--boost-inputs-->

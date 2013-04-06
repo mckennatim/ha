@@ -53,6 +53,12 @@ $('#aroom').live('pageinit', function(event) {
       $("html, body").animate({ scrollTop: 0 }, "slow");
       return false;
     });
+    $(".arm-refresh").click(function(){
+        sys.refreshProgs();
+        sys.refreshState();
+        console.log("after window load.refresh");
+        return false;
+    });
     $(".arm-prev").click(function() {
         slidethis($('#aroom'), 200,"left");
         zone.load(prev($('.head-rm-name').data("rmid")));
@@ -628,7 +634,7 @@ var zone = {
             if(entry){
                 zone.dayx[i]=1;
                 //console.log("outline day");
-                $('#but-day'+i).css("border-color", "red");
+                $('#but-day'+i).css("border-color", "orange");
             }
             i++;
         });      
@@ -640,6 +646,7 @@ var zone = {
         this.daysi=[0,0,0,0,0,0,0]
         this.daysi[i]=1;
         titeObj.arr=this.prog[i];
+        titeObj.sort();
         titeObj.clrDisp();
         titeObj.dispAll();
     },
@@ -777,6 +784,7 @@ var sys = {
             sys.updMain();
             zone.load(0);
             zone.refresh();
+            //window.location.reload(true);
         }); 
         return true;            
     },
@@ -788,6 +796,8 @@ var sys = {
             sys.progs = data.items;
             localStorage.setItem('progs',JSON.stringify(sys.progs));
             sys.current = sys.progs[sys.feed]['current'];
+            zone.load(zone.idx);
+            zone.refresh();¡¡
         }); 
         return true;            
     },  

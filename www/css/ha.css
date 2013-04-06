@@ -15,7 +15,7 @@
 	background:white;
    width: 90px; /*div height is set by img size+padding, width=110 otherwise goes to screenwidth*/
    display: block; /*otherwise button will shrink to text size*/
-   padding:4px;
+   padding:1px;
    border-top: 1px solid #96d1f8;
    -webkit-border-radius: 10px;
    -moz-border-radius: 10px;
@@ -53,13 +53,19 @@
 	border-radius: 10px;
 	height:90px;
 }
+#page-room{
+	background:#FFD34E;
+}
+#aroom{
+	background:#FFD34E;	
+}
 .col1a{
-	background:yellow;
+	background:#FFD34E;
 }
 .boost-div {
 	margin:auto;
 	width:300px;
-	background:#A0D800; /*to see borders of div*/
+	//background:#A0D800; /*to see borders of div*/
 	color:red;	
 	display:block;
 	/*width:320px;*/
@@ -72,11 +78,16 @@
 	margin-top:6px;
 	padding:4px;
 	float:left;
-	background:#EACF00; /*to see borders of div*/
+	//background:#EACF00; /*to see borders of div*/
 	display:block;
 	height:108px;
 	width:160px;
 } 
+.boost-inputs img:hover{
+	position: relative; 
+   top: 4px;
+   right:-4px;
+}
 .boost-button{
 	//float:right;
 	background:green;
@@ -85,18 +96,18 @@
 	margin-top:0px;
 	padding:0 10px 0 10px;
 	float:left;
-	background:#D5C200; /*to see borders of div*/
+	//background:#D5C200; /*to see borders of div*/
 	display:block;
 	height:104px;
 	width:220px;
 } 
 .col1b{
-	background:#B1E9CF;
+	background:#DB9E36;
 }
 .set-div {
 	margin:auto;
 	width:270px;
-	background:#C1E7E9;
+	//background:#C1E7E9;
 	color:blue;	
 	display:block;
 	//width:320px;
@@ -109,7 +120,7 @@
 	margin-top:0px;
 	padding:13px 0px 0 0px;
 	float:left;
-	background:#87E6CF; /*to see borders of div*/
+	//background:#87E6CF; /*to see borders of div*/
 	display:block;
 	height:100px;
 	width:200px;
@@ -121,32 +132,36 @@
 	display:block;
 	float:left;
 	width:230px;
-	background:#3A5BB4;
+	//background:#3A5BB4;
 }
 
 .set-setpt{
 	display:block;
 	float:left;
 	width:230px;
-	background:#7FBD93;
+	//background:#7FBD93;
 }
 .col2 {
-	background:#B6EB00;
+	background:#BD4932;
 }
 .prog-div{
 	margin:auto;
 	width:308px;
 	height:800px;
-	background:#1EF922;
+	//background:#1EF922;
 	display:block;	
 }
+.prog-div h4{
+	padding-top: 6px;
+	color:#FFD34E;
+}
 .prog-load{
-	background:#1EF922;
+	//background:#1EF922;
 	display:block;	
 	height:20px;
 }
 .prog-clear{
-	background:#41F17C;
+	//background:#41F17C;
 	display:block;	
 	float:right;
 }
@@ -154,7 +169,7 @@
 .prog-day{
 	float:left;
 	margin:auto;
-	background:#41F17C;
+	//background:#41F17C;
 	display:block;	
 	width:308px;
 	height:100px;
@@ -175,7 +190,7 @@
 	float:left;
 	margin:auto;
 	width:290px;
-	background:#6CF77C;
+	background:#FFD34E;
 	display:block;	
 	height:280px;
 	border: 1px solid black;
@@ -221,19 +236,19 @@
 .prog-t{
 	float:left;
 	height:90px;
-	background:#D4F4FF;
+	//background:#D4F4FF;
 	width:108px;
 }
 .prog-te{
 	float:left;
 	height:90px;
-	background:#D4F4FF;
+	//background:#D4F4FF;
 	width:180px;
 }
 .prog-copy{
 	margin:auto;
 	width:290px;
-	background:#6CF7B4;
+	//background:#6CF7B4;
 	display:block;	
 	height:290px;
 }
@@ -242,7 +257,7 @@
 	float:left;
 }
 .prog-copy-save-but{
-	background:#E3DFB4;
+	//background:#E3DFB4;
 	width:116px;
 	height:170px;
 	float:left;
@@ -251,7 +266,7 @@
 	margin:6px;
 	float:left;
 	width:150px;
-	background:white;
+	//background:white;
 }
 .prog-copy-zones p{
 	float:left;
@@ -260,7 +275,7 @@
 	vertical-align: top;
 }
 .prog-copy-zones li{
-	background: #D6AF21;
+	background: #DB9E36;
 	border: 1px outset #B0E8FF;
 	padding:0 0 4px 4px;
 	vertical-align: top;
@@ -277,17 +292,17 @@
 	padding:0 0 0 10px;
 }
 .prog-copy-save{
-	background:#BBADB4;
+	//background:#BBADB4;
 	margin:0px;
 	padding:0 0 0 10px;
 	float:left;
 }
 .prog-copy-zones li.zsel {
-	background: #FFFF66;
+	background: #FFD34E;
 }
 .prog-save{
 	height:100px;
-	background:#1EF922;
+	//background:#1EF922;
 	display:block;	
 }
 div.prog-time {
@@ -306,7 +321,7 @@ div.prog-time div.prog-time-box div.prog-tes li{
 	margin:auto;
 	border: 1px solid blue;
 	display:inline;
-	background: #D4F4FF;
+	background:#FFFAD5;
 	padding:5px;
 }
 div.prog-time div.prog-time-box div.prog-tes a{
@@ -319,7 +334,7 @@ div.prog-time div.prog-time-box div.prog-tes span{
 	padding: 5px 40px 4px 40px;
 }
 .col3 {
-	background:#1EF9F6;
+	background:#FFD34E;
 }
 .timest {
     float: right;
@@ -354,19 +369,39 @@ H1 { color: green; }
 .black{background: rgba(0,0,0,.75);}
 
 .head-rm header {height:70px;}
-.head-img {float:left;}
-.head-img img {width:110px; height:70px;}
-.head-txt {float:left; width:100px; margin:4px; font-family:"Arial Black", Gadget, sans-serif;}
-.head-temp {height:55px;font-size:2.5em; float:right; margin:4px;}
+.head-img {
+	float:left;
+}
+.head-img img {
+	width:110px; 
+	height:68px;
+}
+.head-txt {
+	float:left; 
+	width:100px; 
+	margin:1px; 
+	font-family:"Arial Black", Gadget, sans-serif;
+}
+.head-temp {
+	//height:55px;
+	font-size:2.3em; 
+	float:right; 
+	margin:4px;
+}
 .head-rm-name {float:right;}
 .head-menu {
-	float:left; 
-	background: rgba(0,0,0,.4); 
-	color: rgba(0,0,0,.4);
-	position:absolute;
-	left:280px;
-	top:2px;
-	width:30px;
+	float:right; 
+	max-width: 100px;
+}
+.head-menu {
+	float:right;
+}
+.head-menu img{
+	height:30px;
+	width:30px;	
+}
+.ui-header{
+	//background: green;
 }
 
 /* Stack the two content containers */
@@ -403,11 +438,11 @@ H1 { color: green; }
 		.col2 { float: left; width:50%; }	
 		.col3 { float: left; width:50%; }		
 	.head-menu {
-	    float:left;
-		background: rgba(0,0,0,.4); 
-		color: rgba(0,0,0,.4);
-		position:relative;
-		display:inline;
+	   //float:left;
+		//background: rgba(0,0,0,.4); 
+		//color: rgba(0,0,0,.4);
+		//position:relative;
+		//display:inline;
 	}
 	.boost-div {
 		margin:auto;
