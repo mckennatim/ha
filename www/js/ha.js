@@ -797,7 +797,7 @@ var sys = {
             localStorage.setItem('progs',JSON.stringify(sys.progs));
             sys.current = sys.progs[sys.feed]['current'];
             zone.load(zone.idx);
-            zone.refresh();¡¡
+            zone.refresh();
         }); 
         return true;            
     },  
@@ -824,7 +824,7 @@ var sys = {
                 rell="not set";
                 bkg="black";
             }else {
-                if (state.relay == 0){
+                if (state.relay == 1){
                     rell="off"; bkg=green;
                 }else{
                     rell="on"; 

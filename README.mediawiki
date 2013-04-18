@@ -1,8 +1,23 @@
 back to [[electronics]]
 ===[[online heating system control project]]===
 http://[[homecontrol]].sitebuilt.net jquery-mobile app
+====deployment - sensors for 7 zones live====
+:running hsc_run.ino and hscsetup.ino
+
+One wire sensors are known to be weird when connected in a star network of varying lengths < 100ft.
+See...
+:[http://openenergymonitor.org/emon/buildingblocks/DS18B20-temperature-sensing on one wire problems]
+:[http://www.maximintegrated.com/app-notes/index.mvp/id/148 guidelines for relaiable 1 wire networks]
+In general if they can be found on search then they will work for reporting temperatures. So I unplugged sensors until I got a configuration that worked then put the rest in a second OneWire network ds1(26). and then modified the code to read the first network then the second. You can tell how a particular configuration does by running setup. Screwing the wires in sucks. Plugging them in is good.
+
+TODO:
+*get rid of swipe right/swipe left 
+*fix sort ordering
+*refresh on home
+*fix so not always LR
+
 ====beta 0.1 - cleaned up colors, some testing on multiple devices====
-TODO: back to electronics. Build working relays.
+TODO: back to electronics. Build working relays. [http://arduino-info.wikispaces.com/ArduinoPower on relays]S
 
 ====version I: ====
 on callback functions from things like $.get(... this.something doesn't refer back to the object method but must be explicitly referred to by like sys.somethhing
@@ -274,6 +289,10 @@ A cheap circuit like http://www.craig.copperleife.com/tech/thermo/ or more compl
 :http://stackoverflow.com/questions/4421020/use-php-to-create-edit-and-delete-crontab-jobs
 
 ====parts====
+[http://openenergymonitor.org/emon/buildingblocks/DS18B20-temperature-sensing on one wire problems]
+
+[http://www.maximintegrated.com/app-notes/index.mvp/id/148 guidelines for relaiable 1 wire networks]
+
 =====[http://www.maximintegrated.com/datasheet/index.mvp/id/2735 DS1620 Digital Thermometer and Thermostat]=====
 In a [http://www.rentron.com/project01.htm thermostat circuit] $2.20 for dip
 {{:DS18B20 Maxim 1-wire temperature sensors}}
