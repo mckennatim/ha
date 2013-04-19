@@ -48,6 +48,16 @@
    background: #28597a;
    opacity:0.9;
 }
+.button-big:hover{
+	position: relative; 
+   top: 2px;
+   right:-8px;
+}
+.button-big:active{
+	position: relative; 
+   top: -4px;
+   right:4px;
+}
 
 .button-big img{
 	border-radius: 10px;
@@ -305,6 +315,7 @@
 	//background:#1EF922;
 	display:block;	
 }
+
 div.prog-time {
 	display:block;
 }

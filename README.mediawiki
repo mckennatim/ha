@@ -1,6 +1,7 @@
 back to [[electronics]]
 ===[[online heating system control project]]===
 http://[[homecontrol]].sitebuilt.net jquery-mobile app
+====beta 0.2 ui bug fixes====
 ====deployment - sensors for 7 zones live====
 :running hsc_run.ino and hscsetup.ino
 

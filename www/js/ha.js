@@ -18,6 +18,7 @@ var sday = ["Su", "M", "T", "W", "Th", "F", "S" ];
 $('#main-page').live('pageinit', function(event) {
     console.log('in live pageinit for main-page');
     sys.load();
+    $.mobile.loadPage("#aroom");
     //setTimeout(console.log('back in live pageinit for main-page'),2000);
     console.log('back in live pageinit for main-page');
     sys.initMain();
@@ -54,8 +55,11 @@ $('#aroom').live('pageinit', function(event) {
       return false;
     });
     $(".arm-refresh").click(function(){
-        sys.refreshProgs();
-        sys.refreshState();
+        rmid=$('.head-rm-name').data("rmid");
+        //sys.refreshProgs();
+        //sys.refreshState();
+        zone.load(rmid);
+        zone.refresh();
         console.log("after window load.refresh");
         return false;
     });
@@ -72,14 +76,14 @@ $('#aroom').live('pageinit', function(event) {
         return false;
     }); 
     $('#aroom').on('swipeleft',function(event){
-        slidethis($('#aroom'), 200,"left");
-        zone.load(prev($('.head-rm-name').data("rmid")));
+        //slidethis($('#aroom'), 200,"left");
+        //zone.load(prev($('.head-rm-name').data("rmid")));
         zone.refresh();
         return false;       
     });
     $('#aroom').on('swiperight',function(event){
-        slidethis($('#aroom'), 200,"right");
-        zone.load(next($('.head-rm-name').data("rmid")));
+        //slidethis($('#aroom'), 200,"right");
+        //zone.load(next($('.head-rm-name').data("rmid")));
         zone.refresh();
         return false;       
     });
@@ -316,6 +320,8 @@ $('#aroom').live('pageinit', function(event) {
     $("#prog-server-button").click(function() {
         console.log('save to server button'); 
         sys.prog2server();
+        $(".zone-list li").removeClass('zsel');
+        $(".zone-list li img").attr('src','img/icons/ckbx-empty.gif');
     });
                    
 });//end of aroom pageinit AAAAAAAAAAAAROOOOOMs 
@@ -516,20 +522,20 @@ var titeObj ={
     lisel : '.prog-tes ul li',
     idx : 0,
     arr : new Array(),
-    push : function(){
+
+    add : function(){
+        if (!this.arr){this.arr=new Array();}
+        var idx = this.arr.length; 
         var too=new Object();
         var timel=$(this.tisel).val(); //"7:30";        
         var time = time2PM(timel);
         var templ = $(this.tesel).val();
         too['clock']=timel;
         too['setpt']=templ; 
-        this.arr.push(too);     
-    },
-    add : function(){
-        if (!this.arr){this.arr=new Array();}
-        this.push();
-        this.idx = this.arr.length-1;
-        this.disp(this.idx);        
+        too['idx']=idx;
+        this.arr.push(too); 
+        console.log(this.arr[idx]['clock']); 
+        this.disp(idx);
     },
     del : function(i){
 
@@ -554,7 +560,8 @@ var titeObj ={
         var temp = this.arr[idx]['setpt'];
         var timel = this.arr[idx]['clock'];
         var timep = time2PM(timel);
-        newTite ='  <li  data-ti="'+this.idx+'" data-timl="'+timel+'" data-temp="'+temp+'"><a href="#" ><img src="img/icons/pencil.png" title="edit" height="20px" width="20px"/></a><span>'+timep+' </span><span>'+temp+' &deg;</span></li>';
+        var idx = this.arr[idx]['idx'];
+        newTite ='  <li  data-ti="'+idx+'" data-timl="'+timel+'" data-temp="'+temp+'"><a href="#" ><img src="img/icons/pencil.png" title="edit" height="20px" width="20px"/></a><span>'+timep+' </span><span>'+temp+' &deg;</span></li>';
         $(this.ulsel).append(newTite);
         this.bindEdit($(this.lisel));       
     },
@@ -570,6 +577,12 @@ var titeObj ={
             var timeA=parseInt(a.clock.substring(0,2)), timeB=parseInt(b.clock.substring(0,2))
             return timeA-timeB //sort by date ascending
         }); 
+        this.reindex();
+    },
+    reindex : function(){
+        for (i=0;i<this.arr.length;i++){
+            this.arr[i]['idx']=i;
+        }        
     }
 };
 
