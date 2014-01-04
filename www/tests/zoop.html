@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
+    <meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <link rel="apple-touch-icon" sizes="72x72" href="img/hcsbs.jpg"/>
+    <link rel="stylesheet" href="http://homecontrol.sitebuilt.net/www/css/reset.css" type="text/css"/>
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.0/jquery.mobile-1.3.0.min.css" />
+    <link href="css/demo.css" rel="stylesheet" type="text/css" />	
+    <link href="css/ha.css" rel="stylesheet" type="text/css" />
+    <script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
+    <script src="http://code.jquery.com/mobile/1.3.0/jquery.mobile-1.3.0.min.js"></script>
+    <script type='text/javascript'>
+        console.log("inzoop");
+        var obj={
+            tisel : new Array(),
+            tesel : "" ,
+            ulsel : '.prog-tes ul',
+            lisel : '.prog-tes ul li',
+            idx : 0,
+            arr : new Array(),
+            new : function(){
+                this.tesel="dog";
+                this.tisel[0]="cat";
+                return "frog";
+            }
+        };
+        obj.new();
+        
+        anima=new Object();
+        anima.large = "elephant"
+        anima['small'] = "mouse";
+        feline=new Array();
+        feline[4]=anima;
+        
+        function MyClass(animal,feline){
+                this.tesel=animal;
+                this.tisel=feline;
+                return "frog";
+        }		
+        MyClass.prototype={
+            ulsel : '.prog-tes ul',
+            lisel : '.prog-tes ul li',
+            idx : 0,
+            arr : new Array(),
+            new : function(){
+                console.log(this.tesel);
+                this.tesel="jerk";
+                this.tisel[17]="drugs";
+                this.tisel[0]="rock";
+            }
+        };
+        obj=new MyClass(anima,feline);
+        
+    
+    </script>
+    
+</head>
+<body>
+</body>
+</html>

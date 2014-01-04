@@ -728,7 +728,7 @@ var sys = {
             //nqrep= 'path='+this.feed; //+'room=all';
             nqrep = 'type=zone&feed='+this.feed;
             console.log(nqrep);
-            $.getJSON('http://homecontrol.sitebuilt.net/services/get.php', nqrep, function(data) {
+            $.getJSON('http://hvac.sitebuilt.net/services/get.php', nqrep, function(data) {
                 console.log("in getJSON looking for zones");
                 sys.zones =(data['items']);
                 sys.numzones=(sys.zones.length); 
@@ -792,7 +792,7 @@ var sys = {
         //nqrep = 'path='+this.feed+'&room=all';
         nqrep = 'type=state'+'&feed='+this.feed;
         console.log("in sys.refreshState()" + nqrep);
-        $.getJSON('http://homecontrol.sitebuilt.net/services/get.php', nqrep, function(data) {
+        $.getJSON('http://hvac.sitebuilt.net/services/get.php', nqrep, function(data) {
             sys.states = data.items;
             sys.updMain();
             zone.load(0);
@@ -805,7 +805,7 @@ var sys = {
         //nqrep = 'path='+this.feed+'&progs=all';
         nqrep = 'type=prog&ver=current'+'&feed='+this.feed;
         console.log("in sys.refreshProgs()" + nqrep);
-        $.getJSON('http://homecontrol.sitebuilt.net/services/get.php', nqrep, function(data) {
+        $.getJSON('http://hvac.sitebuilt.net/services/get.php', nqrep, function(data) {
             sys.progs = data.items;
             localStorage.setItem('progs',JSON.stringify(sys.progs));
             sys.current = sys.progs[sys.feed]['current'];
@@ -821,7 +821,7 @@ var sys = {
         } else{
             nqrep = 'type=boho&feed='+this.feed;
             console.log("in getBoho()" + nqrep);
-            $.getJSON('http://homecontrol.sitebuilt.net/services/get.php', nqrep, function(data) {
+            $.getJSON('http://hvac.sitebuilt.net/services/get.php', nqrep, function(data) {
                 sys.bohos = data.items;
                 console.log(sys.bohos);
                 localStorage.setItem('bohos',JSON.stringify(sys.bohos));    
@@ -883,7 +883,7 @@ var sys = {
 };
 
 /*
-http://homecontrol.sitebuilt.net/services/getData.php?path=80302&room=all
+http://hvac.sitebuilt.net/services/getData.php?path=80302&room=all
 
 Object {circuit: "ckt0", id: "259720", feed: "80302", room: "livingroom", rname: "Livingroom"…}
 afeed: "80302"

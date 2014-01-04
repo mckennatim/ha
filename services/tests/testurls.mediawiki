@@ -1,0 +1,11 @@
+
+ http://hvac.sitebuilt.net/services/putSetpt.php?feed=80302&type=prog&sensor=4&setpt=167
+
+There is a rewrite rule in /etc/apache2/sites-available/default
+
+ RewriteRule datastreams /var/www/hsc/tests/testCurl.php?id=$1
+for testing  
+
+ http://hvac.sitebuilt.net/services/tests/datastreamsRewriteTest.php?type=boho&feed=80302&some=all 
+
+ http://hvac.sitebuilt.net/services/tests/datastreamsPUTtest.php

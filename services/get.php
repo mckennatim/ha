@@ -26,7 +26,7 @@ ChromePhp::log($urlStr);
 //198.23.156.78/hsc/zone/80302/
 //198.23.156.78/hsc/state/80302/
 //198.23.156.78/hsc/boho/80302/5                                                        
-$ch = curl_init('198.23.156.78/hsc/'.$urlStr);                                                                      
+$ch = curl_init('168.220.241.140/hsc/'.$urlStr);                                                                      
 curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");                                                         
 curl_setopt($ch, CURLOPT_HTTPGET, TRUE); 
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true); 

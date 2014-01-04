@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+  	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
+	<meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1">
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="white" />
+	<link rel="apple-touch-icon" sizes="72x72" href="img/hcsbs.jpg"/>
+	<link rel="stylesheet" href="css/reset.css" />	
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.0/jquery.mobile-1.3.0.min.css" />
+	<link rel="stylesheet" href="css/zrwd.css" />
+	<script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
+	<script src="http://code.jquery.com/mobile/1.3.0/jquery.mobile-1.3.0.min.js"></script>
+	<script type='text/javascript' src="js/zrwd.js"></script>	
+</head>
+<body>
+	
+<div data-role="page" data-theme="a" id="main-page" data-url="demo-page">
+ 	<div data-role="header">
+		<a href="#popupMenu" data-rel="popup" data-role="button" data-inline="true">Menu</a>
+		<a href="#popupNested" data-rel="popup" data-role="button" data-inline="true">Help</a>		
+		<h3>Rooms</h3>
+		<div data-role="popup" id="popupMenu" data-theme="a">
+				<ul data-role="listview" data-inset="true" style="min-width:210px;" data-theme="b">
+					<!--<li data-role="divider" data-theme="a">Popup API</li>-->
+					<li data-icon="false"><a href="#" class="temp-refresh">Refresh Temps</a></li>
+					<li data-icon="false"><a href="#" class="reload" >Reload Page</a></li>
+					<li data-icon="false"><a href="#" class="reset-app">Reset App</a></li>
+					<li data-icon="false"><a href="#page-2" class="page-2">page-2</a></li>
+				</ul>
+		</div>
+		<div data-role="popup" id="popupNested" data-theme="none">
+			<div data-role="collapsible-set" data-theme="b" data-content-theme="c" data-collapsed-icon="arrow-r" data-expanded-icon="arrow-d" style="margin:0; width:250px;">
+				<div data-role="collapsible" data-inset="false">
+					<h2>Temperature</h2>
+					<ul data-role="listview">
+						<li data-icon="false"><a href="#" data-rel="dialog">Set Point<span class="thelp"> -> in upper right<span></a></li>
+						<li data-icon="false"><a href="#" data-rel="dialog">Current Temp<span class="thelp"> -> above room name<span></a></li>
+					</ul>
+				</div><!-- /collapsible -->
+				<div data-role="collapsible" data-inset="false">
+					<h2>Color Codes</h2>
+					<ul data-role="listview">
+						<li data-icon="false"><a href="#" data-rel="dialog" class="green">Zone is OFF</a></li>
+						<li data-icon="false"><a href="#" data-rel="dialog" class="orange">Heat Zone is ON</a></li>
+						<li data-icon="false"><a href="#" data-rel="dialog" class="blue">Cooling Zone is ON</a></li>
+						<li data-icon="false"><a href="#" data-rel="dialog" class="black">Zone Not Reporting</a></li>
+					</ul>
+				</div><!-- /collapsible -->
+				<div data-role="collapsible" data-inset="false">
+					<h2>Timestamp Code</h2>
+					<ul data-role="listview">
+						<li data-icon="false"><a href="../dialog.html" data-rel="dialog">M T W TH F Sa Su</a></li>
+						<li data-icon="false"><a href="../dialog.html" data-rel="dialog">day of Month</a></li>
+						<li data-icon="false"><a href="../dialog.html" data-rel="dialog">hour</a></li>
+						<li data-icon="false"><a href="../dialog.html" data-rel="dialog">minute</a></li>
+					</ul>
+				</div><!-- /collapsible -->
+				<div data-role="collapsible" data-inset="false">
+					<h2>Wild Animals</h2>
+					<ul data-role="listview">
+						<li><a href="../dialog.html" data-rel="dialog">Lion</a></li>
+						<li><a href="../dialog.html" data-rel="dialog">Monkey</a></li>
+						<li><a href="../dialog.html" data-rel="dialog">Tiger</a></li>
+						<li><a href="../dialog.html" data-rel="dialog">Zebra</a></li>
+						<li><a href="../dialog.html" data-rel="dialog">MaBibi</a></li>
+					</ul>
+				</div><!-- /collapsible -->
+			</div><!-- /collapsible set -->
+		</div><!-- /popup -->
+	</div>
+<!--content-->	
+    <div data-role="content" class="my-page" >
+		<div class="main">
+			<p>I ran up the steps and tried to force my way past her into the house. A stinging slap came on my jaw. I stood on the sidewalk, crying. 
+
+“Please, let me wait until tomorrow,” I begged. 
+
+“No,” she said. “Go now! If you come back into this house without those groceries, I’ll whip you!” 
+
+She slammed the door and I heard the key turn in the lock. I shook with fright. I was alone upon the dark, hostile streets and gangs were after me. I had the choice of being beaten at home or away from home. I clutched the stick, crying, trying to reason. If I were beaten at home, there was absolutely nothing that I could do about it; but if I were beaten in the streets, I had a chance to fight and defend myself. I walked slowly down the sidewalk, coming closer to the gang of boys, holding the stick tightly. I was so full of fear that I could scarcely breathe. I was almost upon them now. 
+
+“There he is again!” the cry went up. 
+
+They surrounded me quickly and began to grab for my hand. 
+
+“I’ll kill you!” I threatened. 
+
+They closed in. In blind fear I let the stick fly, feeling it crack against a boy’s skull. I swung again, lamming another skull, then another. Realizing that they would retaliate if I let up for but a second, I fought to lay them low, to knock them cold, to kill them so that they could not strike back at me. I flayed with tears in my eyes, teeth clenched, stark fear making me throw every ounce of my strength behind each blow. I hit again and again, dropping the money and the grocery list. The boys scattered, yelling, nursing their heads, staring at me in utter disbelief. They had never seen such frenzy. I stood panting, egging them on, taunting them to come on and fight. When they refused, I ran after them and they tore out for their homes, screaming. The parents of the boys rushed into the streets and threatened me, and for the first time in my life I shouted at grownups, telling them that I would give them the same if they bothered me. I finally found my grocery list and the money and went to the store. On my way back I kept my stick poised for instant use, but there was not a single boy in sight. That night I won the right to the streets of Memphis. . . . 
+
+After my father’s desertion, my mother’s ardently religious disposition dominated the household and I was often taken to Sunday school where I met God’s representative in the guise of a tall, black preacher. One Sunday my mother invited the tall, black preacher to a dinner of fried chicken. I was happy, not because the preacher was coming but because of the chicken. One or two neighbors also were invited. But no sooner had the preacher arrived than I began to resent him, for I learned at once that he, like my father, was used to having his own way. The hour for dinner came and I was wedged at the table between talking and laughing adults. In the center of the table was a huge platter of golden-brown fried chicken. I compared the bowl of soup that sat before me with the crispy chicken and decided in favor of the chicken. The others began to eat their soup, but I could not touch mine. 
+
+“Eat your soup,” my mother said. </p>
+		</div><!--main-->
+	</div><!--content-->
+    <div data-role="footer" data-theme="none">
+        <h3>Current Status of Heating System</h3>
+    </div><!-- /footer -->
+</div>			
+		
+<div data-role="page" data-theme="a" id="page-2" data-url="demo-page">
+<div class="head-rm">	
+	<header data-role="header" data-position="fixed" >
+		<div class="head-img">
+			<img src="http://homecontrol.sitebuilt.net/www/img/small/peris.JPG" />
+		</div>	
+		<div class="head-txt">
+			<div class="head-rm-name">
+				Living Room
+			</div>
+			<div class="head-temp">
+				70&deg
+			</div>
+	</div><!--head-txt-->
+	</header>
+</div>
+    <div data-role="content" class="my-page" >		
+		<div class="col1">
+			<div class="col1a">
+				<label for="slider-1">douglas slider:</label>
+				<input type="range" name="slider-1" id="slider-1" value="60" min="0" max="100" />
+				<p>speech by Frederick Douglass, Rochester, NY 1952
+...Fellow-citizens, pardon me, allow me to ask, why am I called upon toA policy of extending a country's power and influence through diplomacy or military force. We wanted a foreign market for our surplus products "Fate has written speak here to-day? What have I, or those I represent, to do with your national independence? Are the great principles of political freedom and of natural justice, embodied in that natural justice, embodied in that</p>
+			</div><!--col1a-->
+			<div class="col1b">
+				<label for="slider-1b">douglas2 slider:</label>
+				<input type="range" name="slider-1b" id="slider-1b" value="60" min="0" max="100" />
+				<p>speech by Frederick Douglass, Rochester, NY 1952
+...Fellow-citizens, pardon me, allow me to ask, why am I called upon to A policy of extending a country's power and influence through diplomacy or military force. We wanted a foreign market for our surplus products "Fate has writtenspeak here to-day? What have I, or those I represent, to do with your national independence? Are the great principles of political freedom and of natural justice, embodied in that </p>
+			</div><!--col1b-->
+		</div><!--col1-->
+		
+		<div class="col2">
+						        <label for="slider-2">social darwinismr:</label>
+		<input type="range" name="slider-2" id="slider-2" value="60" min="0" max="100" />
+			<p>Foreign Policy
+social Darwinism
+strongest or fittest should survive and flourish in society, while the weak and unfit should be allowed to die. This theory was used to promote the idea that the white European race was superior to others, and therefore, destined to rule over them.
+imperialism
+A policy of extending a country's power and influence through diplomacy or military force. We wanted a foreign market for our surplus products "Fate has written </p>
+		</div><!--col2-->	
+		<div class="col3">
+			<label for="slider-2">Natural Selection:</label>
+			<input type="range" name="slider-3" id="slider-3" value="60" min="0" max="100" />
+			<p>Foreign Policy
+A policy of extending a country's power and influence through diplomacy or military force. We wanted a foreign market for our surplus products "Fate has written social Darwinism
+strongest or fittest should survive and flourish in society, while the weak and unfit should be allowed to die. This theory was used to promote the idea that the white European race was superior to others, and therefore, destined to rule over them.
+imperialism
+A policy of extending a country's power and influence through diplomacy or military force. We wanted a foreign market for our surplus products "Fate has written </p>
+		</div><!--col3-->		
+    </div><!-- /content -->
+<!--footer-->    
+    <div data-role="footer" data-theme="none">
+        <h3>Current Status of Heating System</h3>
+    </div><!-- /footer -->
+</div>	
+
+</body>	
+</html>	
