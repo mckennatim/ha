@@ -780,12 +780,12 @@ var sys = {
         this.loadBohos();
     },
     initMain : function(){
-        console.log('in init main');
         $.each(this.zones, function(index, zone) {
             ima = sys.b64[zone.room];
             $('#rooms').append('<li id="rm'+index+'" class="room-li"><a href="#"><img src="data:image/jpeg;charset=utf-8;base64, '+ima+'"><span class="temp"> <h2><span class="temp-disp"></span> &deg F </h2></span><p class="rname">'+zone.rname+'<span class="timest"></span></p><p class="ui-li-aside setpt"><span class="setpt-refresh"></span>&deg F</p></a></li>');
         });
         $('#rooms').listview('refresh');    
+        console.log('in init main');
         return true;    
     },  
     refreshState : function(){
