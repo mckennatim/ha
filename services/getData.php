@@ -8,7 +8,7 @@ $room="all";
 $str= "?room=".$room;
 //198.23.156.78/hsc/feed/80302?room=all
                                                              
-$ch = curl_init('198.23.156.78/hsc/feed/'.$feed.'?'.$data);                                                                      
+$ch = curl_init('162.220.241.140/hsc/feed/'.$feed.'?'.$data);                                                                      
 curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");                                                         
 curl_setopt($ch, CURLOPT_HTTPGET, TRUE); 
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true); 

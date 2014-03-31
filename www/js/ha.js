@@ -741,6 +741,7 @@ var sys = {
         return true;
     },
     loadProgs : function(){
+        /*
         if ( localStorage.getItem('progs')) {
             console.log("progs is in local storage");
             this.progs = JSON.parse(localStorage.getItem('progs'));
@@ -752,6 +753,9 @@ var sys = {
             this.refreshProgs();
             //this.loadB64();
         }
+        */
+        console.log("always goto server for prog data");
+        this.refreshProgs();        
         this.numzones=(this.zones.length); 
         return true;
     },  
@@ -815,10 +819,12 @@ var sys = {
         return true;            
     },  
     loadBohos : function(){
+        /*
         if ( localStorage.getItem('bohos')) {
             console.log("bohos is in local storage");
             this.bohos = JSON.parse(localStorage.getItem('bohos'));
         } else{
+            */
             nqrep = 'type=boho&feed='+this.feed;
             console.log("in getBoho()" + nqrep);
             $.getJSON('http://hvac.sitebuilt.net/services/get.php', nqrep, function(data) {
@@ -826,7 +832,9 @@ var sys = {
                 console.log(sys.bohos);
                 localStorage.setItem('bohos',JSON.stringify(sys.bohos));    
             });
+        /*  
         }
+        */
         return true;            
     },      
     updMain : function(){

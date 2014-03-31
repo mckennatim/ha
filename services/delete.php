@@ -10,7 +10,7 @@ ChromePhp::log($ckt);
 ChromePhp::log($feed);
 //198.23.156.78/hsc/boho/80302/3
                                                              
-$ch = curl_init('198.23.156.78/hsc/boho/'.$feed.'/'.$ckt);                                                                      
+$ch = curl_init('162.220.241.140/hsc/boho/'.$feed.'/'.$ckt);                                                                      
 curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE");                                                         
 curl_setopt($ch, CURLOPT_HTTPGET, TRUE); 
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true); 

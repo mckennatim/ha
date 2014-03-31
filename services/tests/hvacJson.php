@@ -13,4 +13,5 @@ $insarr = (array)$roomsArr[3];
 print_r($insarr);
 ChromePhp::log($insarr);
 
+$hold58='[{"start":1389059350,"finish":1391651350,"setpt":"58"},{"start":1389059350,"finish":1391651350,"setpt":"58"},{"start":1389059350,"finish":1391651350,"setpt":"58"},{"start":1389059350,"finish":1391651350,"setpt":"58"},{"start":1389059350,"finish":1391651350,"setpt":"58"},{"start":1389059350,"finish":1391651350,"setpt":"58"},{"start":1389059350,"finish":1391651350,"setpt":"58"},{"start":1389059350,"finish":1391651350,"setpt":"58"},{"start":1389059350,"finish":1391651350,"setpt":"58"},{"start":1389059350,"finish":1391651350,"setpt":"58"},{"start":1389059350,"finish":1391651350,"setpt":"58"},{"start":1389059350,"finish":1391651350,"setpt":"58"}]'
  ?>

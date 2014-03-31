@@ -17,7 +17,7 @@ $bdata=json_encode($data);
 
 //http://198.23.156.78/hsc/prog/80302/4
                                                              
-$ch = curl_init('198.23.156.78/hsc/prog/'.$feed.'/'.$sensor.'/');                                                                      
+$ch = curl_init('162.220.241.140/hsc/prog/'.$feed.'/'.$sensor.'/');                                                                      
 curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");                                                         
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true); 
 curl_setopt($ch, CURLOPT_HTTPHEADER, array( 
